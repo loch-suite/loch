@@ -192,10 +192,14 @@ import { APPS } from '../data/apps';
 <style>
   /* ── Wordmark ──────────────────────────────────────────────────── */
   .wordmark {
-    font-size: clamp(5rem, 18vw, 10rem);
+    font-size: clamp(3.5rem, 11vw, 6.5rem);
     line-height: 0.95;
-    letter-spacing: 0.14em;
-    color: var(--text-primary);
+    letter-spacing: 0.18em;
+    /* Top-bright → bottom-faded gradient: less "stamped", more composed */
+    background: linear-gradient(170deg, rgba(245,245,247,0.88) 0%, rgba(245,245,247,0.50) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* ── Logo mark pulse on hover ──────────────────────────────────── */
