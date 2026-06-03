@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+// Must match TopoBackground — both canvases shift together as one plane.
+const EXTRA_H  = 500;
+const PAR_RATE = 0.08;
+
 export default function GeoDecor() {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -11,11 +15,13 @@ export default function GeoDecor() {
     function draw() {
       if (!canvas) return;
       const W = window.innerWidth;
-      const H = window.innerHeight;
+      // Draw on the full extended canvas so bottom-of-canvas elements are
+      // visible as the parallax reveals them during scroll.
+      const H = window.innerHeight + EXTRA_H;
       canvas.width  = W * dpr;
       canvas.height = H * dpr;
-      canvas.style.width  = W + 'px';
-      canvas.style.height = H + 'px';
+      canvas.style.width  = `${W}px`;
+      canvas.style.height = `${H}px`;
 
       const ctx = canvas.getContext('2d')!;
       ctx.scale(dpr, dpr);
@@ -26,6 +32,7 @@ export default function GeoDecor() {
       const NAV = 72;   // nav bar clearance
 
       // ── Dot matrices ───────────────────────────────────────────────
+      // Repeated at top AND bottom so they appear naturally as parallax reveals them.
       const dots = (ox: number, oy: number, cols: number, rows: number, step: number, op: number) => {
         ctx.fillStyle = `rgba(245,245,247,${op})`;
         for (let r = 0; r < rows; r++) {
@@ -37,14 +44,19 @@ export default function GeoDecor() {
         }
       };
 
-      dots(M,            NAV,              20, 11, S, 0.07);  // top-left
-      dots(W - M - 14*S, H - M - 8*S,    14,  8, S, 0.06);  // bottom-right
-      dots(W - M - 9*S,  NAV,              9,  6, S, 0.055); // top-right
-      dots(M,            H / 2 - 4 * S,   5,  9, S, 0.045); // left-center strip
+      // Top corners
+      dots(M,            NAV,              20, 11, S, 0.07);
+      dots(W - M - 14*S, H - M - 8*S,    14,  8, S, 0.06);
+      dots(W - M -  9*S, NAV,              9,  6, S, 0.055);
+      dots(M,            H / 2 - 4 * S,   5,  9, S, 0.045);
 
-      // ── Structured plus signs ──────────────────────────────────────
-      // Pluses are placed in aligned columns (left/right edges) and rows
-      // (top/bottom edges) with a small deterministic jitter — NOT random.
+      // ── Plus sign grid ─────────────────────────────────────────────
+      // A uniform grid across the full canvas, masked so only the outer
+      // EDGE_ZONE pixels near each edge are visible. This gives the
+      // structured Valorant-style alignment while the center stays clear.
+
+      const GSTEP     = 110;  // grid pitch — same in X and Y
+      const EDGE_ZONE = 210;  // fade-out distance from each edge
 
       ctx.lineWidth = 0.9;
       ctx.lineCap   = 'round';
@@ -57,52 +69,39 @@ export default function GeoDecor() {
         ctx.stroke();
       };
 
-      // Deterministic micro-jitter: sin-based, no LCG needed
-      const jx = (seed: number) => Math.sin(seed * 47.3)  * 3.5;
-      const jy = (seed: number) => Math.cos(seed * 131.7) * 3.5;
+      // Dot matrix bounding boxes — skip grid pluses inside them to avoid clutter
+      const inDotZone = (x: number, y: number): boolean =>
+        (x < M + 21*S && y < NAV + 12*S)          ||  // top-left
+        (x > W - M - 15*S && y > H - M - 9*S)     ||  // bottom-right
+        (x > W - M - 10*S && y < NAV + 7*S)        ||  // top-right
+        (x < M + 6*S && y > H/2 - 5*S && y < H/2 + 6*S); // left-center
 
-      // Column helper: vertical line of alternating large/small pluses
-      const column = (cx: number, yStart: number, yEnd: number, step: number,
-                       armLg: number, armSm: number, op: number, seedBase: number) => {
-        let i = 0;
-        for (let y = yStart; y <= yEnd; y += step) {
-          const arm = i % 2 === 0 ? armLg : armSm;
-          const o   = i % 2 === 0 ? op    : op * 0.65;
-          plus(cx + jx(seedBase + i), y + jy(seedBase + i), arm, o);
-          i++;
+      // Offset the grid origin so pluses land between dot rows, not on them
+      const ox = GSTEP * 0.45;
+      const oy = NAV + GSTEP * 0.35;
+
+      for (let gx = ox; gx <= W; gx += GSTEP) {
+        for (let gy = oy; gy <= H; gy += GSTEP) {
+          if (inDotZone(gx, gy)) continue;
+
+          const fromLeft   = gx;
+          const fromRight  = W - gx;
+          const fromTop    = gy - NAV;
+          const fromBottom = H - gy;
+          const edgeDist   = Math.min(fromLeft, fromRight, fromTop, fromBottom);
+
+          if (edgeDist > EDGE_ZONE) continue;
+
+          // Quadratic falloff: bright near edges, invisible before center
+          const t  = 1 - edgeDist / EDGE_ZONE;
+          const op = 0.085 * t * t;
+
+          plus(gx, gy, 7, op);
         }
-      };
-
-      // Row helper: horizontal line of alternating large/small pluses
-      const row = (cy: number, xStart: number, xEnd: number, step: number,
-                    armLg: number, armSm: number, op: number, seedBase: number) => {
-        let i = 0;
-        for (let x = xStart; x <= xEnd; x += step) {
-          const arm = i % 2 === 0 ? armLg : armSm;
-          const o   = i % 2 === 0 ? op    : op * 0.65;
-          plus(x + jx(seedBase + i), cy + jy(seedBase + i), arm, o);
-          i++;
-        }
-      };
-
-      const COL_STEP = 92;   // vertical rhythm for column pluses
-      const ROW_STEP = 108;  // horizontal rhythm for row pluses
-
-      // Right edge: outer column (larger) + inner column (smaller, offset by half-step)
-      column(W - 128, 132, H - 132, COL_STEP,  8.5, 5.0, 0.09, 10);
-      column(W - 72,  132 + COL_STEP/2, H - 132, COL_STEP,  5.5, 3.5, 0.07, 20);
-
-      // Left edge: mirrored
-      column(128,  132, H - 132, COL_STEP,  8.5, 5.0, 0.09, 30);
-      column(72,   132 + COL_STEP/2, H - 132, COL_STEP,  5.5, 3.5, 0.07, 40);
-
-      // Top edge row — starts well past the corner dot matrices
-      row(NAV + 28, M + 22*S + 24, W - M - 9*S - 24, ROW_STEP,  8.0, 5.0, 0.07, 50);
-
-      // Bottom edge row
-      row(H - M - 8*S - 24, M + 24, W - M - 24, ROW_STEP,  7.5, 4.5, 0.06, 60);
+      }
 
       // ── Corner brackets ────────────────────────────────────────────
+      // Drawn at both top and bottom corners of the extended canvas.
       const arm = 28;
       const cm  = 38;
       ctx.lineWidth   = 1.2;
@@ -111,29 +110,38 @@ export default function GeoDecor() {
 
       const bracket = (x: number, y: number, dx: number, dy: number) => {
         ctx.beginPath();
-        ctx.moveTo(x,           y + dy * arm);
-        ctx.lineTo(x,           y);
+        ctx.moveTo(x,            y + dy * arm);
+        ctx.lineTo(x,            y);
         ctx.lineTo(x + dx * arm, y);
         ctx.stroke();
       };
 
+      // Top corners (viewport)
       bracket(cm,    cm,    +1, +1);
       bracket(W-cm,  cm,    -1, +1);
+      // Bottom corners (visible when parallax reveals extended area)
       bracket(cm,    H-cm,  +1, -1);
       bracket(W-cm,  H-cm,  -1, -1);
+      // Mid-canvas corners (viewport bottom at rest)
+      const VH = window.innerHeight;
+      bracket(cm,    VH-cm,  +1, -1);
+      bracket(W-cm,  VH-cm,  -1, -1);
 
       // ── Horizontal scan-lines ──────────────────────────────────────
       ctx.setLineDash([3, 18]);
       ctx.lineWidth = 0.6;
       ctx.lineCap   = 'round';
 
-      ([0.28, 0.55, 0.80] as number[]).forEach(pct => {
-        ctx.strokeStyle = `rgba(245,245,247,${pct < 0.5 ? 0.04 : 0.035})`;
+      // Lines at regular intervals across the full canvas height
+      const LINE_STEP = Math.round(H / 5);
+      for (let i = 1; i <= 4; i++) {
+        const ly = i * LINE_STEP;
+        ctx.strokeStyle = `rgba(245,245,247,0.038)`;
         ctx.beginPath();
-        ctx.moveTo(M * 2.5,     H * pct);
-        ctx.lineTo(W - M * 2.5, H * pct);
+        ctx.moveTo(M * 2.5,     ly);
+        ctx.lineTo(W - M * 2.5, ly);
         ctx.stroke();
-      });
+      }
 
       ctx.setLineDash([]);
 
@@ -148,16 +156,33 @@ export default function GeoDecor() {
       ctx.setLineDash([]);
     }
 
+    function onScroll() {
+      if (!canvas) return;
+      canvas.style.transform = `translateY(${-window.scrollY * PAR_RATE}px)`;
+    }
+
     draw();
-    window.addEventListener('resize', draw, { passive: true });
-    return () => window.removeEventListener('resize', draw);
+    window.addEventListener('resize', draw,     { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('resize', draw);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   return (
     <canvas
       ref={ref}
       aria-hidden="true"
-      style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 1 }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        pointerEvents: 'none',
+        zIndex: 1,
+        willChange: 'transform',
+      }}
     />
   );
 }

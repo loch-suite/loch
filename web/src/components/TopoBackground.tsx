@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { drawContoursAt, TIME_SPEED } from '../lib/topo';
 
-// How much the topo noise field drifts per pixel scrolled.
-// Tuned so 2000px of scroll produces ~0.24 units of noise-space shift —
-// clearly visible as a slow pattern drift without feeling disconnected.
-const SCROLL_PARALLAX = 0.00012;
+// Extra canvas height beyond the viewport prevents a gap at the bottom
+// when the parallax transform shifts the canvas upward.
+// At rate 0.08, max safe scroll = EXTRA_H / 0.08 = 6250px.
+const EXTRA_H    = 500;
+const PAR_RATE   = 0.08;
 
 export default function TopoBackground() {
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
-  const scrollRef  = useRef(0); // updated on scroll, read in rAF — no re-renders
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,22 +22,24 @@ export default function TopoBackground() {
 
     function resize() {
       if (!canvas) return;
-      canvas.width  = window.innerWidth  * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width  = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+      const W = window.innerWidth;
+      const H = window.innerHeight + EXTRA_H;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = `${W}px`;
+      canvas.style.height = `${H}px`;
     }
 
     function onScroll() {
-      scrollRef.current = window.scrollY;
+      if (!canvas) return;
+      canvas.style.transform = `translateY(${-window.scrollY * PAR_RATE}px)`;
     }
 
     function frame(ts: number) {
       if (!canvas || !ctx) return;
       if (startTime === null) startTime = ts;
-      const t           = ((ts - startTime) / 1000) * TIME_SPEED;
-      const scrollShift = scrollRef.current * SCROLL_PARALLAX;
-      drawContoursAt(ctx, canvas, t, scrollShift);
+      const t = ((ts - startTime) / 1000) * TIME_SPEED;
+      drawContoursAt(ctx, canvas, t);
       animId = requestAnimationFrame(frame);
     }
 
@@ -63,6 +65,7 @@ export default function TopoBackground() {
         left: 0,
         pointerEvents: 'none',
         zIndex: 0,
+        willChange: 'transform',
       }}
     />
   );

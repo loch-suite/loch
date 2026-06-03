@@ -8,7 +8,7 @@ const links = [
 ];
 ---
 
-<nav id="loom-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+<nav id="loom-nav" class="fixed top-0 left-0 right-0 z-50">
   <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
     <!-- Wordmark -->
     <a href="/" class="flex items-center gap-2.5 select-none group" style="text-decoration: none;">
@@ -137,10 +137,17 @@ const links = [
   .mobile-link:last-child { border-bottom: none; }
   .mobile-link:hover { color: var(--text-primary); }
 
+  /* Border is always 1px — only COLOR transitions to avoid the width-0→1 flash */
+  #loom-nav {
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    /* Transition background and border-color only — never border-width */
+    transition: background 280ms ease, border-color 280ms ease, backdrop-filter 280ms ease;
+  }
   #loom-nav.scrolled {
-    background: rgba(10, 10, 12, 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(10, 10, 12, 0.82);
+    backdrop-filter: blur(14px);
+    border-color: rgba(255, 255, 255, 0.08);
   }
 </style>
 

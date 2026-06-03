@@ -66,13 +66,12 @@ function fbm(x: number, y: number, z: number, octaves: number): number {
 
 // --- Field sampling ---
 
-// scrollShift: scroll-driven Y offset in noise space for parallax effect.
-function sampleField(t: number, scrollShift = 0): Float32Array {
+function sampleField(t: number): Float32Array {
   const field = new Float32Array(GRID_W * GRID_H);
   for (let gy = 0; gy < GRID_H; gy++) {
     for (let gx = 0; gx < GRID_W; gx++) {
       const nx = (gx / GRID_W) * FREQ_X + SEED_X;
-      const ny = (gy / GRID_H) * FREQ_Y + SEED_Y + scrollShift;
+      const ny = (gy / GRID_H) * FREQ_Y + SEED_Y;
       // Domain warp: two offset FBM calls shift the sample position
       const wx = fbm(nx,       ny,       t, 2) * WARP;
       const wy = fbm(nx + 5.2, ny + 1.3, t, 2) * WARP;
@@ -242,7 +241,6 @@ export function drawContoursAt(
   ctx: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement,
   t: number,
-  scrollShift = 0,
 ): void {
   const w = canvas.width, h = canvas.height;
   if (w === 0 || h === 0) return;
@@ -258,7 +256,7 @@ export function drawContoursAt(
   ctx.lineCap     = 'round';
   ctx.lineJoin    = 'round';
 
-  const field = sampleField(t, scrollShift);
+  const field = sampleField(t);
 
   // All iso-levels batched into a single path for performance
   ctx.beginPath();
