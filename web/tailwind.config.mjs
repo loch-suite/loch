@@ -18,7 +18,8 @@ export default {
         },
       },
       fontFamily: {
-        loom: ['-apple-system', '"Segoe UI Variable Text"', '"Segoe UI"', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', '-apple-system', 'system-ui', 'sans-serif'],
+        loom:    ['-apple-system', '"Segoe UI Variable Text"', '"Segoe UI"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         chip:   '3px',
