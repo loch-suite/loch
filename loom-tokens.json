@@ -1,0 +1,266 @@
+{
+  "_comment": "Loom Design System — raw tokens. Source of truth: Loom Macro codebase.",
+
+  "color": {
+    "bg": {
+      "base":     "#0a0a0c",
+      "elevated": "#111114",
+      "raised":   "#18181c"
+    },
+    "text": {
+      "primary":   "#f5f5f7",
+      "secondary": "rgba(245, 245, 247, 0.6)",
+      "muted":     "rgba(245, 245, 247, 0.35)"
+    },
+    "border": {
+      "subtle": "rgba(255, 255, 255, 0.08)",
+      "faint":  "rgba(255, 255, 255, 0.04)"
+    },
+    "category": {
+      "trigger":  "#f97316",
+      "action":   "#3b82f6",
+      "flow":     "#8b5cf6",
+      "sensor":   "#10b981",
+      "variable": "#f59e0b"
+    },
+    "pin": {
+      "exec":    "rgba(255, 255, 255, 0.75)",
+      "number":  "#60a5fa",
+      "coord":   "#22d3ee",
+      "boolean": "#4ade80",
+      "string":  "#fb923c",
+      "image":   "#c084fc",
+      "color":   "#f472b6",
+      "key":     "#fbbf24",
+      "button":  "#94a3b8",
+      "any":     "rgba(255, 255, 255, 0.45)",
+      "varname": "#f59e0b",
+      "monitor": "#64748b"
+    },
+    "state": {
+      "error":          "#ef4444",
+      "errorText":      "#f87171",
+      "errorRing":      "rgba(239, 68, 68, 0.6)",
+      "errorGlow":      "rgba(239, 68, 68, 0.35)",
+      "armed":          "#4ade80",
+      "armedGlow":      "rgba(74, 222, 128, 0.6)",
+      "running":        "#f97316",
+      "stop":           "#f87171",
+      "stopRing":       "rgba(239, 68, 68, 0.4)",
+      "updateAvail":    "rgb(249, 115, 22)",
+      "updateReady":    "rgb(74, 222, 128)",
+      "humanize":       "rgb(251, 191, 36)",
+      "selection":      "rgba(234, 88, 12, 0.07)",
+      "selectionBorder":"rgba(234, 88, 12, 0.45)",
+      "closeHoverBg":   "rgba(229, 62, 62, 0.18)",
+      "closeHoverText": "#fc8181",
+      "viewIndicator":  "rgba(255, 255, 255, 0.07)"
+    },
+    "topo": {
+      "stroke": "rgba(255, 255, 255, 0.13)"
+    },
+    "scrollbar": {
+      "thumb":      "rgba(255, 255, 255, 0.12)",
+      "thumbHover": "rgba(255, 255, 255, 0.22)"
+    },
+    "connection": {
+      "lineDragging": "rgba(255, 255, 255, 0.5)"
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "sans":  "-apple-system, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, sans-serif",
+      "mono":  "monospace"
+    },
+    "fontSize": {
+      "xs":   "9px",
+      "sm":   "10px",
+      "base": "11px",
+      "md":   "12px",
+      "body": "13px"
+    },
+    "fontWeight": {
+      "normal":   400,
+      "semibold": 600,
+      "bold":     700
+    },
+    "lineHeight": {
+      "body": 1.5,
+      "tight": 1
+    },
+    "letterSpacing": {
+      "tight":   "0.02em",
+      "slight":  "0.04em",
+      "tab":     "0.07em",
+      "button":  "0.08em",
+      "section": "0.1em",
+      "brand":   "0.12em"
+    }
+  },
+
+  "spacing": {
+    "1":  "1px",
+    "2":  "2px",
+    "3":  "3px",
+    "4":  "4px",
+    "5":  "5px",
+    "6":  "6px",
+    "7":  "7px",
+    "8":  "8px",
+    "10": "10px",
+    "12": "12px",
+    "14": "14px",
+    "16": "16px",
+    "24": "24px"
+  },
+
+  "borderRadius": {
+    "none":    "0",
+    "sm":      "2px",
+    "chip":    "3px",
+    "input":   "4px",
+    "btn":     "4px",
+    "btnLg":   "6px",
+    "panel":   "8px",
+    "window":  "10px",
+    "pill":    "99px",
+    "full":    "50%"
+  },
+
+  "borderWidth": {
+    "default":       "1px",
+    "categoryStripe":"3px"
+  },
+
+  "shadow": {
+    "window":      "0 24px 64px rgba(0,0,0,0.7), 0 4px 16px rgba(0,0,0,0.5)",
+    "nodeDefault": "0 2px 8px rgba(0,0,0,0.4)",
+    "nodeSelected":"0 0 0 2px rgba(255,255,255,0.08), 0 4px 16px rgba(0,0,0,0.5)",
+    "nodeError":   "0 0 0 2px rgba(239,68,68,0.6), 0 0 16px rgba(239,68,68,0.35), 0 4px 16px rgba(0,0,0,0.5)",
+    "dropdownSm":  "0 6px 16px rgba(0,0,0,0.5)",
+    "dropdownMd":  "0 8px 24px rgba(0,0,0,0.6)",
+    "popoverLg":   "0 10px 28px rgba(0,0,0,0.65)",
+    "pillBar":     "0 2px 10px rgba(0,0,0,0.45)",
+    "pinGlow":     "0 0 4px {color}80"
+  },
+
+  "layout": {
+    "sidebarWidth":    "240px",
+    "titlebarHeight":  "38px",
+    "titlebarBtnW":    "28px",
+    "titlebarBtnH":    "24px",
+    "gridSnapSize":    "16px",
+    "nodeMinWidth":    "200px",
+    "rerouteNodeSize": "20px",
+    "scrollbarSize":   "5px"
+  },
+
+  "duration": {
+    "instant":  "80ms",
+    "fast":     "120ms",
+    "tab":      "150ms",
+    "normal":   "180ms",
+    "panel":    "220ms",
+    "fitView":  "300ms"
+  },
+
+  "easing": {
+    "standard": "ease",
+    "panel":    "cubic-bezier(0.2, 0, 0, 1)"
+  },
+
+  "animation": {
+    "nodePulse":    { "duration": "900ms",  "easing": "ease-in-out", "iteration": "infinite" },
+    "armPulse":     { "duration": "1800ms", "easing": "ease-in-out", "iteration": "infinite" },
+    "stopRing":     { "duration": "1400ms", "easing": "ease-in-out", "iteration": "infinite" },
+    "capturePulse": { "duration": "1000ms", "easing": "ease-in-out", "iteration": "infinite" },
+    "spin":         { "duration": "1000ms", "easing": "linear",      "iteration": "infinite" }
+  },
+
+  "topo": {
+    "gridCols":      200,
+    "gridRows":      150,
+    "virtualWidth":  2000,
+    "virtualHeight": 1500,
+    "spatialFreqX":  1.8,
+    "spatialFreqY":  1.4,
+    "fbmOctaves":    2,
+    "warpStrength":  0.85,
+    "timeSpeed":     0.025,
+    "isoLevels":     [0.28, 0.32, 0.36, 0.40, 0.44, 0.48, 0.52, 0.56, 0.60, 0.64, 0.68, 0.72],
+    "strokeColor":   "rgba(255,255,255,0.13)",
+    "lineWidthBase": 1.0,
+    "lineWidthMin":  0.6,
+    "chaikinPasses": 3
+  },
+
+  "cssVariables": {
+    "_usage": "Copy this block into your :root {} to use Loom tokens as CSS custom properties.",
+    "--bg-base":       "#0a0a0c",
+    "--bg-elevated":   "#111114",
+    "--bg-raised":     "#18181c",
+    "--border-subtle": "rgba(255, 255, 255, 0.08)",
+    "--border-faint":  "rgba(255, 255, 255, 0.04)",
+    "--text-primary":  "#f5f5f7",
+    "--text-secondary":"rgba(245, 245, 247, 0.6)",
+    "--text-muted":    "rgba(245, 245, 247, 0.35)",
+    "--accent":        "#f5f5f7",
+    "--window-radius": "10px"
+  },
+
+  "tailwindExtend": {
+    "_usage": "Paste the contents of `colors`, `borderRadius`, `fontSize`, `fontFamily`, `transitionDuration`, and `boxShadow` into your tailwind.config.js `theme.extend` block.",
+    "colors": {
+      "loom": {
+        "base":     "#0a0a0c",
+        "elevated": "#111114",
+        "raised":   "#18181c",
+        "text": {
+          "primary":   "#f5f5f7",
+          "secondary": "rgba(245,245,247,0.6)",
+          "muted":     "rgba(245,245,247,0.35)"
+        },
+        "border": {
+          "subtle": "rgba(255,255,255,0.08)",
+          "faint":  "rgba(255,255,255,0.04)"
+        },
+        "trigger":  "#f97316",
+        "action":   "#3b82f6",
+        "flow":     "#8b5cf6",
+        "sensor":   "#10b981",
+        "variable": "#f59e0b",
+        "error":    "#ef4444",
+        "armed":    "#4ade80"
+      }
+    },
+    "borderRadius": {
+      "chip":   "3px",
+      "input":  "4px",
+      "panel":  "8px",
+      "window": "10px"
+    },
+    "fontSize": {
+      "loom-xs":   ["9px",  { "lineHeight": "1" }],
+      "loom-sm":   ["10px", { "lineHeight": "1.4" }],
+      "loom-base": ["11px", { "lineHeight": "1.5" }],
+      "loom-md":   ["12px", { "lineHeight": "1.5" }],
+      "loom-body": ["13px", { "lineHeight": "1.5" }]
+    },
+    "fontFamily": {
+      "loom": ["-apple-system", "Segoe UI Variable Text", "Segoe UI", "system-ui", "sans-serif"]
+    },
+    "transitionDuration": {
+      "instant": "80ms",
+      "fast":    "120ms",
+      "normal":  "180ms",
+      "panel":   "220ms"
+    },
+    "boxShadow": {
+      "loom-window":  "0 24px 64px rgba(0,0,0,0.7), 0 4px 16px rgba(0,0,0,0.5)",
+      "loom-node":    "0 2px 8px rgba(0,0,0,0.4)",
+      "loom-popover": "0 10px 28px rgba(0,0,0,0.65)",
+      "loom-dropdown":"0 6px 16px rgba(0,0,0,0.5)"
+    }
+  }
+}
