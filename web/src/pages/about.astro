@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="The story and philosophy behind Loom — offline-first, privacy-respecting desktop utilities for Windows."
+  activePage="/about"
+>
+
+  <!-- ─── Header ──────────────────────────────────────────────────── -->
+  <section class="relative px-6 pt-32 pb-16 text-center">
+    <div class="max-w-2xl mx-auto">
+      <span class="label-section mb-3 block">About Loom</span>
+      <h1 class="page-title font-loom font-bold uppercase tracking-brand mb-5">
+        Built for your machine.
+      </h1>
+      <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.7; max-width: 480px; margin: 0 auto;">
+        Loom is a suite of offline-first desktop utilities for Windows, built on the belief that
+        good software respects the machine it runs on — and the person running it.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── Story ───────────────────────────────────────────────────── -->
+  <section class="relative px-6 py-20">
+    <div class="max-w-3xl mx-auto">
+      <div class="node-card p-8 md:p-12">
+        <span class="label-section mb-4 block">The story</span>
+        <div class="prose-loom">
+          <p>
+            Loom started as a personal tool. The first app — Loom Macro — grew out of a simple
+            frustration: every macro and automation tool I tried either required a subscription,
+            phoned home, or hid your data behind an opaque sync engine.
+          </p>
+          <p>
+            The goal was straightforward: a powerful, visual macro editor that stores everything
+            locally in a plain format you can read, back up, and delete whenever you want.
+            Nothing more, nothing less.
+          </p>
+          <p>
+            That approach turned out to define something bigger. Every Loom app follows the same
+            rule: your data lives on your machine. Not in our cloud. Not in our database.
+            On your disk, in a folder you can open in Notepad if you feel like it.
+          </p>
+          <p>
+            The suite is growing slowly and deliberately. Each app ships when it's ready —
+            not when a roadmap demands it. The design language is consistent, the offline
+            guarantee is non-negotiable, and the source is open.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Principles ──────────────────────────────────────────────── -->
+  <section class="relative px-6 pb-20">
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-8">
+        <span class="label-section mb-2 block">Principles</span>
+        <h2 class="section-heading">What Loom stands for.</h2>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        {[
+          {
+            n: '01',
+            title: 'Offline first, always.',
+            body: 'Every Loom app runs without an internet connection. There are no sync servers, no cloud APIs, no telemetry endpoints. If your machine is offline, Loom still works.',
+          },
+          {
+            n: '02',
+            title: 'Your data is yours.',
+            body: 'Loom apps store data in open, documented formats. You can read the files in a text editor, import them into another tool, or delete them without asking us first.',
+          },
+          {
+            n: '03',
+            title: 'No accounts. No friction.',
+            body: 'You should be able to download an app and start using it immediately. No sign-up form. No email verification. No onboarding flow asking for your name.',
+          },
+          {
+            n: '04',
+            title: 'Transparent about data.',
+            body: 'Every Loom app exposes its data folder in-app. You can see exactly where your data lives, open it, inspect it, or delete it with one click — no support ticket required.',
+          },
+          {
+            n: '05',
+            title: 'Open source.',
+            body: 'The Loom suite is open source. You can read the code, verify the privacy guarantees, contribute improvements, or fork it. The openness is the guarantee.',
+          },
+        ].map(p => (
+          <div class="node-card p-6">
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span class="font-mono text-xs font-bold" style="color: var(--text-muted); letter-spacing: 0.08em; margin-top: 3px;">{p.n}</span>
+              <div>
+                <h3 class="text-sm font-bold mb-2 tracking-tight" style="color: var(--text-primary);">{p.title}</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.65;">{p.body}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Data transparency ────────────────────────────────────────── -->
+  <section class="relative px-6 pb-20">
+    <div class="max-w-3xl mx-auto">
+      <div class="node-card p-8" style="background: var(--bg-base);">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="flex-shrink-0 mt-1" style="width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 16px;">
+            ◫
+          </div>
+          <div>
+            <span class="label-section mb-1 block">Data transparency</span>
+            <h2 class="section-heading" style="font-size: 1.4rem;">Open your data folder, anytime.</h2>
+          </div>
+        </div>
+
+        <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary);">
+          Every Loom app includes an "Open data folder" button in its settings panel.
+          One click opens your file explorer to the exact directory where the app stores its data.
+          The format is always documented plain text — JSON or similar.
+        </p>
+
+        <!-- Simulated app settings panel snippet -->
+        <div class="data-panel-mockup">
+          <div class="data-panel-header">
+            <span class="label-section">App Data</span>
+          </div>
+          <div class="data-panel-row">
+            <span style="font-size: 12px; color: var(--text-secondary);">Data location</span>
+            <code style="font-size: 11px; font-family: monospace; color: var(--text-muted);">%APPDATA%\Loom\Macro</code>
+          </div>
+          <div class="data-panel-row">
+            <span style="font-size: 12px; color: var(--text-secondary);">Format</span>
+            <span style="font-size: 12px; color: var(--text-muted);">JSON, human-readable</span>
+          </div>
+          <div class="data-panel-actions">
+            <button class="data-action-btn">Open folder ↗</button>
+            <button class="data-action-btn data-action-danger">Delete all data</button>
+          </div>
+        </div>
+
+        <p class="text-xs mt-4" style="color: var(--text-muted);">
+          Deleting your data is permanent and instant — no account to close, no retention period, no "are you sure?" forms beyond a single confirmation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Open source ─────────────────────────────────────────────── -->
+  <section class="relative px-6 pb-32 text-center">
+    <div class="max-w-lg mx-auto">
+      <span class="label-section mb-4 block">Open source</span>
+      <h2 class="section-heading mb-4">Read the code.</h2>
+      <p class="text-sm mb-8" style="color: var(--text-secondary); max-width: 380px; margin: 0 auto 2rem;">
+        All Loom apps are open source under the MIT license. The source is the documentation.
+      </p>
+      <a href="https://github.com/vidathegoat"
+         target="_blank" rel="noopener noreferrer"
+         class="github-link">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        View on GitHub →
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    line-height: 1.05;
+    color: var(--text-primary);
+  }
+  .section-heading {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  .prose-loom p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .prose-loom p:last-child { margin-bottom: 0; }
+
+  /* Data panel mockup */
+  .data-panel-mockup {
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+    background: var(--bg-elevated);
+  }
+  .data-panel-header {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-faint);
+    background: var(--bg-raised);
+  }
+  .data-panel-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-faint);
+    gap: 12px;
+  }
+  .data-panel-actions {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+  }
+  .data-action-btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-raised);
+    color: var(--text-secondary);
+    cursor: default;
+  }
+  .data-action-danger {
+    color: rgba(248, 113, 113, 0.7);
+    border-color: rgba(239, 68, 68, 0.2);
+    background: rgba(239, 68, 68, 0.05);
+  }
+
+  .github-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    transition: background 180ms, color 120ms;
+  }
+  .github-link:hover {
+    background: rgba(255,255,255,0.1);
+    color: var(--text-primary);
+  }
+</style>

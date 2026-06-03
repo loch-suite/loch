@@ -1,0 +1,142 @@
+---
+const { activePage = '' } = Astro.props;
+
+const links = [
+  { href: '/downloads', label: 'Downloads' },
+  { href: '/changelog', label: 'Changelog' },
+  { href: '/about',     label: 'About'     },
+];
+---
+
+<nav id="loom-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+    <!-- Wordmark -->
+    <a href="/" class="font-loom text-loom-text font-bold tracking-brand text-sm uppercase select-none hover:opacity-80 transition-opacity duration-fast">
+      LOOM
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden md:flex items-center gap-1">
+      <!-- Apps dropdown trigger -->
+      <div class="relative group">
+        <button class="nav-link flex items-center gap-1">
+          Apps
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="opacity-40 transition-transform duration-fast group-hover:rotate-180">
+            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <!-- Dropdown -->
+        <div class="absolute top-full right-0 mt-1 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-fast"
+             style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); padding: 6px;">
+          <a href="/macro"     class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-trigger inline-block mr-2"></span>Macro <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-chip bg-loom-trigger/10 text-loom-trigger font-bold tracking-button uppercase">Live</span></a>
+          <a href="/scheduler" class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-flow     inline-block mr-2"></span>Scheduler</a>
+          <a href="/cookbook"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-sensor   inline-block mr-2"></span>Cookbook</a>
+          <a href="/hardware"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-action   inline-block mr-2"></span>Hardware</a>
+          <a href="/developer" class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-variable inline-block mr-2"></span>Developer</a>
+          <a href="/finance"   class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-cyan    inline-block mr-2"></span>Finance</a>
+        </div>
+      </div>
+
+      {links.map(l => (
+        <a href={l.href} class={`nav-link ${activePage === l.href ? 'nav-link-active' : ''}`}>{l.label}</a>
+      ))}
+
+      <a href="/downloads"
+         class="ml-3 px-4 py-1.5 rounded-panel text-[11px] font-bold tracking-button uppercase transition-all duration-normal"
+         style="background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.35); color: #f97316;">
+        Download Macro
+      </a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-input" style="color: var(--text-muted);" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--border-subtle); background: var(--bg-elevated);">
+    <div class="px-6 py-4 flex flex-col gap-1">
+      <p class="label-section mb-2">Apps</p>
+      <a href="/macro"     class="mobile-link">Macro <span class="badge-coming-soon ml-2" style="color: #f97316; border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.1);">Live</span></a>
+      <a href="/scheduler" class="mobile-link">Scheduler</a>
+      <a href="/cookbook"  class="mobile-link">Cookbook</a>
+      <a href="/hardware"  class="mobile-link">Hardware</a>
+      <a href="/developer" class="mobile-link">Developer</a>
+      <a href="/finance"   class="mobile-link">Finance</a>
+      <div class="my-2 border-t" style="border-color: var(--border-faint);"></div>
+      {links.map(l => (
+        <a href={l.href} class="mobile-link">{l.label}</a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-link {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 120ms ease, background 120ms ease;
+  }
+  .nav-link:hover {
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.05);
+  }
+  .nav-link-active {
+    color: var(--text-primary);
+  }
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: background 80ms;
+  }
+  .dropdown-item:hover {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+  }
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .mobile-link:last-child { border-bottom: none; }
+  .mobile-link:hover { color: var(--text-primary); }
+
+  #loom-nav.scrolled {
+    background: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+</style>
+
+<script>
+  // Scroll-aware nav bg
+  const nav = document.getElementById('loom-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) nav?.classList.add('scrolled');
+    else nav?.classList.remove('scrolled');
+  }, { passive: true });
+
+  // Mobile menu toggle
+  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  });
+</script>

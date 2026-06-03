@@ -1,0 +1,244 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+type Entry = {
+  app:    string;
+  appId:  string;
+  color:  string;
+  ver:    string;
+  date:   string;
+  type:   'major' | 'minor' | 'patch';
+  items:  string[];
+};
+
+const CHANGELOG: Entry[] = [
+  {
+    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '1.0.0', date: '2025-12-01', type: 'major',
+    items: [
+      'Initial public release',
+      'Visual node canvas with 20+ node types',
+      'Keyboard, mouse, timer, and hotkey trigger nodes',
+      'Variable engine with read/write/transform nodes',
+      'Humanize mode for realistic timing variation',
+      'Multiple macro profiles with instant switching',
+      'Arm-to-hotkey for always-ready macro execution',
+      'Open JSON data format — fully inspectable',
+    ],
+  },
+  {
+    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.9.0', date: '2025-10-14', type: 'minor',
+    items: [
+      'Added Catmull-Rom spline rendering for topographic background',
+      'Added Chaikin smoothing (3 passes) to contour lines',
+      'Improved domain-warp FBM algorithm — smoother morph cycle',
+      'Node execution now shows animated category-color pulse ring',
+      'Fixed sidebar collapsible sections losing state on profile switch',
+    ],
+  },
+  {
+    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.8.2', date: '2025-09-03', type: 'patch',
+    items: [
+      'Fixed hotkey capture not releasing on window blur',
+      'Fixed node drag snapping off-grid at high DPI',
+      'Stop button now shows red pulse ring during active run',
+    ],
+  },
+  {
+    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.8.0', date: '2025-08-20', type: 'minor',
+    items: [
+      'Arm mode — arm a single macro to a system-wide hotkey',
+      'Added If / Else conditional nodes to flow control',
+      'Added Loop node with configurable iteration count',
+      'Reroute nodes for clean edge routing on large canvases',
+      'Profile import / export as portable JSON',
+    ],
+  },
+  {
+    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.5.0', date: '2025-06-10', type: 'minor',
+    items: [
+      'First internal beta release',
+      'Core node canvas with React Flow',
+      'Basic trigger, action, and delay node types',
+      'Tauri 2 app shell with custom titlebar',
+    ],
+  },
+];
+
+const ALL_APPS = [
+  { id: 'all',   label: 'All Apps' },
+  { id: 'macro', label: 'Macro'    },
+];
+---
+
+<BaseLayout title="Changelog" activePage="/changelog">
+
+  <!-- ─── Header ─────────────────────────────────────────────────── -->
+  <section class="relative px-6 pt-32 pb-12">
+    <div class="max-w-3xl mx-auto">
+      <span class="label-section mb-3 block">Changelog</span>
+      <h1 class="page-title font-loom font-bold uppercase tracking-brand mb-4">What's new.</h1>
+      <p style="color: var(--text-secondary); font-size: 15px;">
+        Version history across all Loom apps. New releases are announced on GitHub.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── Filter tabs ─────────────────────────────────────────────── -->
+  <section class="relative px-6 pb-8">
+    <div class="max-w-3xl mx-auto">
+      <div class="filter-tabs" id="filter-tabs">
+        {ALL_APPS.map(a => (
+          <button
+            class={`filter-tab ${a.id === 'all' ? 'filter-tab-active' : ''}`}
+            data-filter={a.id}
+          >
+            {a.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Timeline ────────────────────────────────────────────────── -->
+  <section class="relative px-6 pb-32">
+    <div class="max-w-3xl mx-auto">
+      <div class="timeline" id="timeline">
+        {CHANGELOG.map((entry, i) => (
+          <div class="timeline-entry" data-app={entry.appId}>
+            {/* Connector */}
+            <div class="timeline-left">
+              <div class="timeline-dot" style={`background: ${entry.color}; box-shadow: 0 0 8px ${entry.color}60;`}></div>
+              {i < CHANGELOG.length - 1 && <div class="timeline-line"></div>}
+            </div>
+
+            {/* Content */}
+            <div class="timeline-content node-card mb-6 overflow-hidden">
+              {/* Header */}
+              <div class="timeline-header" style={`border-left: 3px solid ${entry.color}; background: linear-gradient(90deg, ${entry.color}10 0%, transparent 50%);`}>
+                <div class="flex items-center gap-3 flex-wrap">
+                  <span class="font-mono font-bold text-sm" style={`color: ${entry.color};`}>
+                    v{entry.ver}
+                  </span>
+                  <span class={`type-badge type-${entry.type}`}>{entry.type}</span>
+                  <span class="text-sm font-semibold" style="color: var(--text-primary);">{entry.app}</span>
+                  <span class="ml-auto text-[11px]" style="color: var(--text-muted);">{entry.date}</span>
+                </div>
+              </div>
+
+              {/* Items */}
+              <ul class="change-list">
+                {entry.items.map(item => (
+                  <li class="change-item">
+                    <span class="change-bullet" style={`color: ${entry.color};`}>·</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  const tabs    = document.querySelectorAll<HTMLButtonElement>('.filter-tab');
+  const entries = document.querySelectorAll<HTMLElement>('.timeline-entry');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('filter-tab-active'));
+      tab.classList.add('filter-tab-active');
+      const filter = tab.dataset.filter;
+      entries.forEach(e => {
+        e.style.display = (!filter || filter === 'all' || e.dataset.app === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  .page-title {
+    font-size: clamp(3rem, 10vw, 5rem);
+    line-height: 1;
+    color: var(--text-primary);
+  }
+
+  /* Filter tabs */
+  .filter-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 8px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    width: fit-content;
+  }
+  .filter-tab {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 120ms, color 120ms;
+  }
+  .filter-tab:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+  .filter-tab-active { background: var(--bg-raised); color: var(--text-primary); }
+
+  /* Timeline */
+  .timeline { position: relative; }
+  .timeline-entry { display: flex; gap: 20px; }
+  .timeline-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 16px;
+  }
+  .timeline-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+  .timeline-line {
+    flex: 1;
+    width: 1px;
+    background: var(--border-subtle);
+    margin-bottom: 0;
+  }
+  .timeline-content { flex: 1; }
+  .timeline-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-faint);
+  }
+
+  /* Type badges */
+  .type-badge {
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .type-major { background: rgba(249,115,22,0.12); color: #f97316; border: 1px solid rgba(249,115,22,0.3); }
+  .type-minor { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+  .type-patch { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-subtle); }
+
+  /* Change list */
+  .change-list { list-style: none; padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; }
+  .change-item { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); padding: 3px 0; }
+  .change-bullet { font-size: 16px; line-height: 1; flex-shrink: 0; }
+
+  @media (max-width: 640px) {
+    .timeline-left { display: none; }
+    .timeline-entry { gap: 0; }
+  }
+</style>

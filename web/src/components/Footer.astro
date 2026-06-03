@@ -1,0 +1,73 @@
+---
+---
+
+<footer style="background: var(--bg-elevated); border-top: 1px solid var(--border-subtle);">
+  <div class="max-w-6xl mx-auto px-6 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <p class="font-loom font-bold tracking-brand text-sm uppercase text-loom-text mb-2">LOOM</p>
+        <p style="color: var(--text-muted); font-size: 12px; line-height: 1.6;">
+          A suite of offline-first desktop utilities for Windows. Your data lives on your machine.
+        </p>
+      </div>
+
+      <!-- Apps -->
+      <div>
+        <p class="label-section mb-3">Apps</p>
+        <div class="flex flex-col gap-2">
+          <a href="/macro"     class="footer-link">Macro <span class="ml-1.5" style="font-size:9px; color: #f97316; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Live</span></a>
+          <a href="/scheduler" class="footer-link">Scheduler</a>
+          <a href="/cookbook"  class="footer-link">Cookbook</a>
+          <a href="/hardware"  class="footer-link">Hardware</a>
+          <a href="/developer" class="footer-link">Developer</a>
+          <a href="/finance"   class="footer-link">Finance</a>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <p class="label-section mb-3">Resources</p>
+        <div class="flex flex-col gap-2">
+          <a href="/downloads" class="footer-link">Downloads</a>
+          <a href="/changelog" class="footer-link">Changelog</a>
+          <a href="/about"     class="footer-link">About</a>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div>
+        <p class="label-section mb-3">Platform</p>
+        <div class="flex flex-col gap-2" style="color: var(--text-muted); font-size: 12px;">
+          <span>Windows 10 / 11</span>
+          <span>x64 &amp; ARM64</span>
+          <span>Offline first</span>
+          <span>No accounts</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pt-6 border-t" style="border-color: var(--border-faint);">
+      <p style="color: var(--text-muted); font-size: 11px;">
+        &copy; {new Date().getFullYear()} Loom. All rights reserved.
+      </p>
+      <p style="color: var(--text-muted); font-size: 11px; letter-spacing: 0.04em;">
+        Built for Windows &middot; No cloud &middot; No tracking
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-link {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 120ms ease;
+    display: flex;
+    align-items: center;
+  }
+  .footer-link:hover {
+    color: var(--text-primary);
+  }
+</style>

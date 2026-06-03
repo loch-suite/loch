@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  id:       string;
+  name:     string;
+  tagline:  string;
+  description: string;
+  colorHex: string;
+  category: string;
+  icon:     string;
+  features?: string[];
+}
+
+const { id, name, tagline, description, colorHex, category, icon, features = [] } = Astro.props;
+---
+
+<BaseLayout title={name} description={`${name} — ${tagline} Coming soon.`}>
+
+  <!-- Hero -->
+  <section class="relative min-h-[65vh] flex flex-col items-center justify-center px-6 text-center pt-20">
+    <div class="hero-glow" style={`--c: ${colorHex};`} aria-hidden="true"></div>
+    <div class="relative z-10 flex flex-col items-center gap-5 max-w-2xl">
+      <div class="flex items-center gap-2">
+        <div class="app-icon-lg flex items-center justify-center font-bold"
+             style={`color: ${colorHex}; background: ${colorHex}18; border: 1px solid ${colorHex}30; width: 48px; height: 48px; border-radius: 10px; font-size: 22px;`}>
+          {icon}
+        </div>
+        <span class="label-section tracking-section" style={`color: ${colorHex};`}>{category} · Loom Suite</span>
+      </div>
+
+      <h1 class="page-title font-loom font-bold uppercase tracking-brand" style="color: var(--text-primary);">
+        {name}
+      </h1>
+      <p style={`font-size: clamp(14px, 2vw, 17px); color: var(--text-secondary); max-width: 460px; line-height: 1.7;`}>
+        {description}
+      </p>
+
+      <!-- Coming soon badge -->
+      <div class="coming-pill" style={`border-color: ${colorHex}30; color: ${colorHex};`}>
+        <span class="coming-dot" style={`background: ${colorHex}; box-shadow: 0 0 6px ${colorHex}80;`}></span>
+        In development — coming soon
+      </div>
+    </div>
+  </section>
+
+  <!-- Planned features -->
+  {features.length > 0 && (
+    <section class="relative px-6 py-20">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-8">
+          <span class="label-section mb-2 block">Planned Features</span>
+          <h2 class="section-heading">What to expect.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {features.map(f => (
+            <div class="feature-item node-card p-4 flex items-start gap-3">
+              <span style={`color: ${colorHex}; font-size: 16px; flex-shrink: 0; margin-top: 1px;`}>·</span>
+              <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">{f}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Placeholder screenshots -->
+  <section class="relative px-6 pb-20">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-8">
+        <span class="label-section mb-2 block">Screenshots</span>
+        <h2 class="section-heading">Coming with the release.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {['Main Interface', 'Settings', 'Data View', 'Workflow'].map(caption => (
+          <div class="ss-placeholder node-card flex flex-col items-center justify-center gap-3 aspect-video">
+            <div style={`width: 36px; height: 36px; border-radius: 8px; border: 1px solid ${colorHex}30; display: flex; align-items: center; justify-content: center; color: ${colorHex}; opacity: 0.4;`}>
+              {icon}
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted);">{caption}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA to explore suite or download Macro -->
+  <section class="relative px-6 pb-32 text-center">
+    <div class="max-w-lg mx-auto">
+      <p class="text-sm mb-8" style="color: var(--text-muted);">
+        While you wait — check out Loom Macro, available now.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="/macro"
+           class="inline-flex items-center px-5 py-2.5 rounded-panel font-bold tracking-button uppercase text-[11px] transition-all duration-normal no-underline"
+           style="background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.35); color: #f97316;">
+          Download Macro →
+        </a>
+        <a href="/"
+           class="inline-flex items-center px-5 py-2.5 rounded-panel font-semibold text-[12px] transition-all duration-normal no-underline"
+           style="background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); color: var(--text-secondary);">
+          View full suite
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -65%);
+    width: 600px; height: 350px;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--c) 5%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-title { font-size: clamp(3rem, 10vw, 5.5rem); line-height: 1; }
+  .section-heading {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+  }
+  .coming-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 99px; border: 1px solid;
+    font-size: 12px; font-weight: 600;
+    background: rgba(255,255,255,0.03);
+  }
+  .coming-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .ss-placeholder { min-height: 200px; background: var(--bg-base); }
+</style>

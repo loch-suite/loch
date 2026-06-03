@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base:        #0a0a0c;
+  --bg-elevated:    #111114;
+  --bg-raised:      #18181c;
+  --border-subtle:  rgba(255, 255, 255, 0.08);
+  --border-faint:   rgba(255, 255, 255, 0.04);
+  --text-primary:   #f5f5f7;
+  --text-secondary: rgba(245, 245, 247, 0.6);
+  --text-muted:     rgba(245, 245, 247, 0.35);
+  --accent:         #f5f5f7;
+  --window-radius:  10px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: var(--bg-base);
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar          { width: 5px; height: 5px; }
+::-webkit-scrollbar-track    { background: transparent; }
+::-webkit-scrollbar-thumb    { background: rgba(255,255,255,0.12); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+/* Section label utility */
+.label-section {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Loom border helpers */
+.border-subtle { border-color: var(--border-subtle); }
+.border-faint  { border-color: var(--border-faint); }
+
+/* Node card pattern */
+.node-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+/* Category stripe header */
+.node-header {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-faint);
+}
+
+/* Coming soon badge */
+.badge-coming-soon {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(245,245,247,0.07);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Animate topo canvas on load */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.topo-canvas {
+  animation: fade-in 1.2s ease forwards;
+}

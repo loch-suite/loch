@@ -1,0 +1,1 @@
+const e=document.getElementById("loom-nav");window.addEventListener("scroll",()=>{window.scrollY>20?e?.classList.add("scrolled"):e?.classList.remove("scrolled")},{passive:!0});document.getElementById("mobile-menu-btn")?.addEventListener("click",()=>{document.getElementById("mobile-menu")?.classList.toggle("hidden")});

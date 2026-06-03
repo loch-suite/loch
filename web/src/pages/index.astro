@@ -1,0 +1,264 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { APPS } from '../data/apps';
+---
+
+<BaseLayout title="Home" activePage="/">
+
+  <!-- ─── Hero ─────────────────────────────────────────────────── -->
+  <section class="hero relative min-h-screen flex flex-col items-center justify-center px-6 text-center">
+    <!-- Subtle radial glow behind the wordmark -->
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="relative z-10 flex flex-col items-center gap-6 max-w-3xl">
+      <!-- Suite badge -->
+      <span class="label-section tracking-section">Desktop Utility Suite</span>
+
+      <!-- Wordmark -->
+      <h1 class="wordmark font-loom font-bold uppercase tracking-brand select-none">
+        LOOM
+      </h1>
+
+      <!-- Tagline -->
+      <p class="tagline" style="color: var(--text-secondary); max-width: 480px;">
+        A suite of offline-first desktop utilities for Windows.<br/>
+        Your data lives on your machine — no cloud, no accounts, no tracking.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
+        <a href="/macro"
+           class="cta-primary">
+          Download Macro
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="ml-1">
+            <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#suite" class="cta-secondary">Explore Suite</a>
+      </div>
+
+      <!-- Version pill -->
+      <p style="font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em;">
+        Macro v1.0.0 available now &middot; Windows 10/11 &middot; Free &amp; open source
+      </p>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-hint">
+      <span style="font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── Suite grid ─────────────────────────────────────────────── -->
+  <section id="suite" class="relative px-6 py-24">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-12 flex flex-col gap-2">
+        <span class="label-section">Suite</span>
+        <h2 class="section-heading">A tool for every workflow.</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; max-width: 480px; margin-top: 4px;">
+          Each Loom app is standalone, offline-first, and designed with the same visual language.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {APPS.map((app) => (
+          <a href={app.slug} class="node-card group block no-underline app-card">
+            <!-- Node-style header with category color stripe -->
+            <div class="node-header flex items-start gap-3"
+                 style={`border-left: 3px solid ${app.colorHex}; background: linear-gradient(90deg, ${app.colorHex}14 0%, transparent 60%);`}>
+              <!-- Icon -->
+              <div class="app-icon flex-shrink-0 flex items-center justify-center font-bold text-base"
+                   style={`color: ${app.colorHex}; background: ${app.colorHex}18; border: 1px solid ${app.colorHex}30; width: 32px; height: 32px; border-radius: 6px;`}>
+                {app.icon}
+              </div>
+              <div class="flex-1 min-w-0 pt-0.5">
+                <p class="label-section" style={`color: ${app.colorHex}; letter-spacing: 0.1em; margin-bottom: 2px;`}>{app.category}</p>
+                <p class="font-semibold text-sm" style="color: var(--text-primary); letter-spacing: 0.02em;">{app.name}</p>
+              </div>
+              {app.shipped ? (
+                <span class="flex-shrink-0 mt-0.5 px-2 py-0.5 rounded-chip text-[9px] font-bold tracking-button uppercase"
+                      style="background: rgba(249,115,22,0.12); color: #f97316; border: 1px solid rgba(249,115,22,0.3);">
+                  Live
+                </span>
+              ) : (
+                <span class="badge-coming-soon flex-shrink-0 mt-0.5">Soon</span>
+              )}
+            </div>
+
+            <!-- Body -->
+            <div class="p-4">
+              <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">
+                {app.tagline}
+              </p>
+              <span class="inline-flex items-center gap-1 text-[11px] font-semibold tracking-button uppercase transition-all duration-fast"
+                    style={`color: ${app.colorHex}; opacity: 0.7;`}>
+                {app.shipped ? 'Download →' : 'Learn more →'}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Philosophy ───────────────────────────────────────────── -->
+  <section class="relative px-6 py-24">
+    <div class="max-w-6xl mx-auto">
+      <div class="philosophy-panel node-card p-10 md:p-14">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="label-section mb-3 block">Philosophy</span>
+            <h2 class="section-heading mb-4" style="max-width: 380px;">
+              Your data lives on your machine.
+            </h2>
+            <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">
+              Every Loom app stores its data locally in an open, inspectable format.
+              No sync servers. No vendor lock-in. No subscriptions. You can open your data
+              folder, read it, back it up, or delete it at any time.
+            </p>
+            <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+              We believe desktop software should respect your machine and your privacy.
+              Loom runs entirely offline — no telemetry, no analytics, no internet required.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            {[
+              { icon: '⊙', label: 'Offline first',   desc: 'No internet connection needed. Ever.' },
+              { icon: '◫', label: 'Open data',        desc: 'Your files in plain, inspectable formats.' },
+              { icon: '◻', label: 'No accounts',      desc: 'No sign-up, no login, no email required.' },
+              { icon: '○', label: 'No telemetry',     desc: 'Zero data sent anywhere — guaranteed.' },
+            ].map(({ icon, label, desc }) => (
+              <div class="flex items-start gap-4 p-4 rounded-panel" style="background: var(--bg-base); border: 1px solid var(--border-faint);">
+                <span class="text-lg mt-0.5 flex-shrink-0" style="color: var(--text-muted);">{icon}</span>
+                <div>
+                  <p class="text-sm font-semibold mb-1" style="color: var(--text-primary);">{label}</p>
+                  <p style="font-size: 12px; color: var(--text-muted);">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Final CTA ────────────────────────────────────────────── -->
+  <section class="relative px-6 py-24 text-center">
+    <div class="max-w-lg mx-auto">
+      <span class="label-section mb-4 block">Get started</span>
+      <h2 class="section-heading mb-4">Start with Macro.</h2>
+      <p class="text-sm mb-8" style="color: var(--text-secondary);">
+        Free, open source, and ships today. No installer required — just download and run.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="/macro"     class="cta-primary">Download Macro →</a>
+        <a href="/downloads" class="cta-secondary">View all downloads</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(249,115,22,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .wordmark {
+    font-size: clamp(5rem, 16vw, 9rem);
+    line-height: 1;
+    letter-spacing: 0.12em;
+    color: var(--text-primary);
+    /* Subtle text shadow for depth */
+    text-shadow: 0 0 80px rgba(249,115,22,0.08);
+  }
+  .tagline {
+    font-size: clamp(14px, 2vw, 17px);
+    line-height: 1.7;
+  }
+
+  /* CTAs */
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: rgba(249,115,22,0.12);
+    border: 1px solid rgba(249,115,22,0.4);
+    color: #f97316;
+    transition: background 180ms ease, border-color 180ms ease, transform 120ms ease;
+  }
+  .cta-primary:hover {
+    background: rgba(249,115,22,0.2);
+    border-color: rgba(249,115,22,0.6);
+    transform: translateY(-1px);
+  }
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    transition: background 180ms ease, color 120ms ease;
+  }
+  .cta-secondary:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--text-primary);
+  }
+
+  /* Scroll hint */
+  .scroll-hint { opacity: 0.4; animation: scroll-bob 2s ease-in-out infinite; }
+  .scroll-line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--text-muted), transparent);
+  }
+  @keyframes scroll-bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(4px); }
+  }
+
+  /* Section headings */
+  .section-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  /* App card hover */
+  .app-card {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+    text-decoration: none;
+  }
+  .app-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+
+  /* Philosophy panel subtle tint */
+  .philosophy-panel {
+    background: var(--bg-raised);
+  }
+</style>
