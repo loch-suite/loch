@@ -11,8 +11,25 @@ const links = [
 <nav id="loom-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
   <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
     <!-- Wordmark -->
-    <a href="/" class="font-loom text-loom-text font-bold tracking-brand text-sm uppercase select-none hover:opacity-80 transition-opacity duration-fast">
-      LOOM
+    <a href="/" class="flex items-center gap-2.5 select-none group" style="text-decoration: none;">
+      <!-- 4-node graph icon mark -->
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"
+           style="color: var(--text-primary); opacity: 0.85; transition: opacity 120ms ease;"
+           class="group-hover:opacity-100">
+        <line x1="4" y1="4" x2="14" y2="4"  stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        <line x1="4" y1="14" x2="14" y2="14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        <line x1="4" y1="4" x2="4"  y2="14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        <line x1="14" y1="4" x2="14" y2="14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        <circle cx="4"  cy="4"  r="2.2" fill="currentColor"/>
+        <circle cx="14" cy="4"  r="2.2" fill="currentColor"/>
+        <circle cx="4"  cy="14" r="2.2" fill="currentColor"/>
+        <circle cx="14" cy="14" r="2.2" fill="currentColor"/>
+      </svg>
+      <span class="font-display font-bold uppercase tracking-brand text-sm"
+            style="color: var(--text-primary); opacity: 0.85; letter-spacing: 0.14em; transition: opacity 120ms ease;"
+            class="group-hover:opacity-100">
+        LOOM
+      </span>
     </a>
 
     <!-- Desktop nav -->

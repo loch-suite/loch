@@ -7,44 +7,73 @@ import { APPS } from '../data/apps';
 
   <!-- ─── Hero ─────────────────────────────────────────────────── -->
   <section class="hero relative min-h-screen flex flex-col items-center justify-center px-6 text-center">
-    <!-- Subtle radial glow behind the wordmark -->
-    <div class="hero-glow" aria-hidden="true"></div>
 
-    <div class="relative z-10 flex flex-col items-center gap-6 max-w-3xl">
-      <!-- Suite badge -->
-      <span class="label-section tracking-section">Desktop Utility Suite</span>
+    <div class="relative z-10 flex flex-col items-center gap-5 max-w-3xl w-full">
+
+      <!-- Logo mark (large) -->
+      <div class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+             style="color: var(--text-primary);">
+          <line x1="7"  y1="7"  x2="29" y2="7"  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="7"  y1="29" x2="29" y2="29" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="7"  y1="7"  x2="7"  y2="29" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="29" y1="7"  x2="29" y2="29" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="7"  cy="7"  r="3.5" fill="currentColor"/>
+          <circle cx="29" cy="7"  r="3.5" fill="currentColor"/>
+          <circle cx="7"  cy="29" r="3.5" fill="currentColor"/>
+          <circle cx="29" cy="29" r="3.5" fill="currentColor"/>
+        </svg>
+      </div>
 
       <!-- Wordmark -->
-      <h1 class="wordmark font-loom font-bold uppercase tracking-brand select-none">
+      <h1 class="wordmark font-display font-bold uppercase select-none">
         LOOM
       </h1>
 
+      <!-- Suite label -->
+      <div class="suite-rule">
+        <div class="rule-line" aria-hidden="true"></div>
+        <span class="label-section px-4">Desktop Utility Suite</span>
+        <div class="rule-line" aria-hidden="true"></div>
+      </div>
+
       <!-- Tagline -->
-      <p class="tagline" style="color: var(--text-secondary); max-width: 480px;">
-        A suite of offline-first desktop utilities for Windows.<br/>
-        Your data lives on your machine — no cloud, no accounts, no tracking.
+      <p class="tagline" style="color: var(--text-secondary); max-width: 520px;">
+        Six apps. One design language. Zero cloud.<br/>
+        <span style="color: var(--text-muted); font-size: 0.9em;">Offline-first utilities for Windows — your data stays on your machine.</span>
       </p>
 
       <!-- CTAs -->
-      <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
-        <a href="/macro"
-           class="cta-primary">
-          Download Macro
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="ml-1">
-            <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-1">
+        <a href="#suite" class="cta-primary">
+          Explore the Suite
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" class="ml-1.5">
+            <path d="M6.5 2v9M2 6.5l4.5 4.5 4.5-4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="#suite" class="cta-secondary">Explore Suite</a>
+        <a href="/macro" class="cta-macro">
+          <span class="macro-live-dot"></span>
+          Macro · v0.1.0 available
+        </a>
       </div>
 
-      <!-- Version pill -->
-      <p style="font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em;">
-        Macro v1.0.0 available now &middot; Windows 10/11 &middot; Free &amp; open source
-      </p>
+      <!-- App strip: all 6 apps as equal-weight chips -->
+      <div class="app-strip">
+        {APPS.map(app => (
+          <a href={app.slug} class="app-chip" style={`--ac: ${app.colorHex};`}>
+            <span class="chip-dot" style={`background: ${app.colorHex};`}></span>
+            <span class="chip-name">{app.name.replace('Loom ', '')}</span>
+            {app.shipped
+              ? <span class="chip-badge chip-live">Live</span>
+              : <span class="chip-badge chip-soon">Soon</span>
+            }
+          </a>
+        ))}
+      </div>
     </div>
 
     <!-- Scroll hint -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-hint">
+    <div class="scroll-hint absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
       <span style="font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;">Scroll</span>
       <div class="scroll-line"></div>
     </div>
@@ -53,23 +82,22 @@ import { APPS } from '../data/apps';
   <!-- ─── Suite grid ─────────────────────────────────────────────── -->
   <section id="suite" class="relative px-6 py-24">
     <div class="max-w-6xl mx-auto">
-      <div class="mb-12 flex flex-col gap-2">
-        <span class="label-section">Suite</span>
+      <div class="mb-14 flex flex-col gap-2">
+        <span class="label-section">The Suite</span>
         <h2 class="section-heading">A tool for every workflow.</h2>
-        <p style="color: var(--text-secondary); font-size: 14px; max-width: 480px; margin-top: 4px;">
-          Each Loom app is standalone, offline-first, and designed with the same visual language.
+        <p style="color: var(--text-secondary); font-size: 14px; max-width: 500px; margin-top: 6px; line-height: 1.7;">
+          Each Loom app is standalone, offline-first, and shares the same design language.
+          Build your own stack — use one app or all six.
         </p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {APPS.map((app) => (
           <a href={app.slug} class="node-card group block no-underline app-card">
-            <!-- Node-style header with category color stripe -->
             <div class="node-header flex items-start gap-3"
                  style={`border-left: 3px solid ${app.colorHex}; background: linear-gradient(90deg, ${app.colorHex}14 0%, transparent 60%);`}>
-              <!-- Icon -->
-              <div class="app-icon flex-shrink-0 flex items-center justify-center font-bold text-base"
-                   style={`color: ${app.colorHex}; background: ${app.colorHex}18; border: 1px solid ${app.colorHex}30; width: 32px; height: 32px; border-radius: 6px;`}>
+              <div class="app-icon-sm flex-shrink-0 flex items-center justify-center font-bold"
+                   style={`color: ${app.colorHex}; background: ${app.colorHex}18; border: 1px solid ${app.colorHex}30; width: 32px; height: 32px; border-radius: 6px; font-size: 14px;`}>
                 {app.icon}
               </div>
               <div class="flex-1 min-w-0 pt-0.5">
@@ -86,11 +114,8 @@ import { APPS } from '../data/apps';
               )}
             </div>
 
-            <!-- Body -->
             <div class="p-4">
-              <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">
-                {app.tagline}
-              </p>
+              <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">{app.tagline}</p>
               <span class="inline-flex items-center gap-1 text-[11px] font-semibold tracking-button uppercase transition-all duration-fast"
                     style={`color: ${app.colorHex}; opacity: 0.7;`}>
                 {app.shipped ? 'Download →' : 'Learn more →'}
@@ -123,7 +148,7 @@ import { APPS } from '../data/apps';
             </p>
           </div>
 
-          <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-3">
             {[
               { icon: '⊙', label: 'Offline first',   desc: 'No internet connection needed. Ever.' },
               { icon: '◫', label: 'Open data',        desc: 'Your files in plain, inspectable formats.' },
@@ -146,14 +171,17 @@ import { APPS } from '../data/apps';
 
   <!-- ─── Final CTA ────────────────────────────────────────────── -->
   <section class="relative px-6 py-24 text-center">
-    <div class="max-w-lg mx-auto">
+    <div class="max-w-xl mx-auto">
       <span class="label-section mb-4 block">Get started</span>
-      <h2 class="section-heading mb-4">Start with Macro.</h2>
-      <p class="text-sm mb-8" style="color: var(--text-secondary);">
-        Free, open source, and ships today. No installer required — just download and run.
+      <h2 class="section-heading mb-2">The suite is growing.</h2>
+      <p class="text-sm mb-2" style="color: var(--text-secondary);">
+        Macro is the first app — available now, free, no accounts.
+      </p>
+      <p class="text-xs mb-8" style="color: var(--text-muted);">
+        Five more apps are in development. Subscribe for updates or check back.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-3">
-        <a href="/macro"     class="cta-primary">Download Macro →</a>
+        <a href="/macro"     class="cta-primary-orange">Download Macro v0.1.0 →</a>
         <a href="/downloads" class="cta-secondary">View all downloads</a>
       </div>
     </div>
@@ -162,32 +190,96 @@ import { APPS } from '../data/apps';
 </BaseLayout>
 
 <style>
-  /* Hero */
-  .hero-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse, rgba(249,115,22,0.04) 0%, transparent 70%);
-    pointer-events: none;
-  }
+  /* ── Wordmark ──────────────────────────────────────────────────── */
   .wordmark {
-    font-size: clamp(5rem, 16vw, 9rem);
-    line-height: 1;
-    letter-spacing: 0.12em;
+    font-size: clamp(5rem, 18vw, 10rem);
+    line-height: 0.95;
+    letter-spacing: 0.14em;
     color: var(--text-primary);
-    /* Subtle text shadow for depth */
-    text-shadow: 0 0 80px rgba(249,115,22,0.08);
   }
+
+  /* ── Logo mark pulse on hover ──────────────────────────────────── */
+  .logo-mark {
+    opacity: 0.85;
+    transition: opacity 180ms ease;
+  }
+  .logo-mark:hover { opacity: 1; }
+
+  /* ── Suite rule (horizontal line + label) ──────────────────────── */
+  .suite-rule {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 480px;
+  }
+  .rule-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+
+  /* ── Tagline ───────────────────────────────────────────────────── */
   .tagline {
-    font-size: clamp(14px, 2vw, 17px);
+    font-size: clamp(14px, 2vw, 18px);
     line-height: 1.7;
   }
 
-  /* CTAs */
+  /* ── CTAs ──────────────────────────────────────────────────────── */
   .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: var(--text-primary);
+    transition: background 180ms ease, border-color 180ms ease, transform 120ms ease;
+  }
+  .cta-primary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.22);
+    transform: translateY(-1px);
+  }
+
+  .cta-macro {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    background: rgba(249,115,22,0.08);
+    border: 1px solid rgba(249,115,22,0.25);
+    color: rgba(249,115,22,0.85);
+    transition: background 180ms ease;
+  }
+  .cta-macro:hover {
+    background: rgba(249,115,22,0.14);
+    color: #f97316;
+  }
+  .macro-live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #f97316;
+    box-shadow: 0 0 5px rgba(249,115,22,0.7);
+    flex-shrink: 0;
+    animation: live-pulse 2s ease-in-out infinite;
+  }
+  @keyframes live-pulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(249,115,22,0.7); }
+    50%       { box-shadow: 0 0 10px rgba(249,115,22,1), 0 0 18px rgba(249,115,22,0.4); }
+  }
+
+  .cta-primary-orange {
     display: inline-flex;
     align-items: center;
     padding: 10px 22px;
@@ -200,13 +292,13 @@ import { APPS } from '../data/apps';
     background: rgba(249,115,22,0.12);
     border: 1px solid rgba(249,115,22,0.4);
     color: #f97316;
-    transition: background 180ms ease, border-color 180ms ease, transform 120ms ease;
+    transition: background 180ms ease, transform 120ms ease;
   }
-  .cta-primary:hover {
+  .cta-primary-orange:hover {
     background: rgba(249,115,22,0.2);
-    border-color: rgba(249,115,22,0.6);
     transform: translateY(-1px);
   }
+
   .cta-secondary {
     display: inline-flex;
     align-items: center;
@@ -226,28 +318,77 @@ import { APPS } from '../data/apps';
     color: var(--text-primary);
   }
 
-  /* Scroll hint */
-  .scroll-hint { opacity: 0.4; animation: scroll-bob 2s ease-in-out infinite; }
-  .scroll-line {
-    width: 1px;
-    height: 32px;
-    background: linear-gradient(to bottom, var(--text-muted), transparent);
+  /* ── App strip ─────────────────────────────────────────────────── */
+  .app-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+    max-width: 640px;
   }
-  @keyframes scroll-bob {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50%       { transform: translateX(-50%) translateY(4px); }
+  .app-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 500;
+    text-decoration: none;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-secondary);
+    transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .app-chip:hover {
+    background: color-mix(in srgb, var(--ac) 8%, rgba(255,255,255,0.03));
+    border-color: color-mix(in srgb, var(--ac) 30%, transparent);
+    color: var(--text-primary);
+  }
+  .chip-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .chip-name { letter-spacing: 0.02em; }
+  .chip-badge {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+  .chip-live {
+    background: rgba(249,115,22,0.12);
+    color: #f97316;
+    border: 1px solid rgba(249,115,22,0.3);
+  }
+  .chip-soon {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255,255,255,0.07);
   }
 
-  /* Section headings */
+  /* ── Scroll hint ───────────────────────────────────────────────── */
+  .scroll-hint { opacity: 0.35; animation: scroll-bob 2.2s ease-in-out infinite; }
+  .scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, var(--text-muted), transparent); }
+  @keyframes scroll-bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(5px); }
+  }
+
+  /* ── Section headings ──────────────────────────────────────────── */
   .section-heading {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--text-primary);
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
-  /* App card hover */
+  /* ── App card hover ────────────────────────────────────────────── */
   .app-card {
     transition: transform 180ms ease, box-shadow 180ms ease;
     text-decoration: none;
@@ -257,8 +398,5 @@ import { APPS } from '../data/apps';
     box-shadow: 0 8px 24px rgba(0,0,0,0.5);
   }
 
-  /* Philosophy panel subtle tint */
-  .philosophy-panel {
-    background: var(--bg-raised);
-  }
+  .philosophy-panel { background: var(--bg-raised); }
 </style>

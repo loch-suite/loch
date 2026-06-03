@@ -27,7 +27,7 @@ export const APPS: App[] = [
     colorHex: '#f97316',
     category: 'Trigger',
     shipped: true,
-    version: '1.0.0',
+    version: '0.1.0',
     githubRelease: 'https://github.com/vidathegoat/loom-macro/releases/latest',
     icon: 'M',
     sizeMb: 8,

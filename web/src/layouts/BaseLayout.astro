@@ -2,13 +2,13 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import TopoBackground from '../components/TopoBackground';
+import GeoDecor from '../components/GeoDecor';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
   activePage?: string;
-  /** Set true to hide the footer (e.g. for full-bleed app pages) */
   noFooter?: boolean;
 }
 
@@ -29,6 +29,11 @@ const {
     <meta name="theme-color" content="#0a0a0c" />
     <title>{title} — Loom</title>
 
+    <!-- Space Grotesk — display / wordmark font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
     <!-- Open Graph -->
     <meta property="og:title"       content={`${title} — Loom`} />
     <meta property="og:description" content={description} />
@@ -37,11 +42,14 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <!-- Topo background — runs the full Loom Macro animation, fixed behind all content -->
+    <!-- Layer 0: topo animation (fixed, z:0) -->
     <TopoBackground client:only="react" />
 
-    <!-- All page content sits above the topo canvas -->
-    <div style="position: relative; z-index: 1;">
+    <!-- Layer 1: geometric decorations — dot matrices, plus signs, brackets (fixed, z:1) -->
+    <GeoDecor client:only="react" />
+
+    <!-- Layer 2: all page content (z:2) -->
+    <div style="position: relative; z-index: 2;">
       <Nav activePage={activePage} />
       <slot />
       {!noFooter && <Footer />}
