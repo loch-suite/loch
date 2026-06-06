@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 const APPS = [
-  { id: 'macro',     name: 'Loch Macro',     color: '#f97316', sizeMb: 8,  shipped: true,  desc: 'Node-based macro scripting' },
-  { id: 'scheduler', name: 'Loch Scheduler', color: '#8b5cf6', sizeMb: 6,  shipped: false, desc: 'Time-aware task orchestration' },
-  { id: 'cookbook',  name: 'Loch Cookbook',  color: '#3b82f6', sizeMb: 5,  shipped: false, desc: 'Personal command recipe book' },
-  { id: 'hardware',  name: 'Loch Hardware',  color: '#10b981', sizeMb: 7,  shipped: true,  desc: 'Hardware monitoring & control' },
-  { id: 'developer', name: 'Loch Developer', color: '#f59e0b', sizeMb: 5,  shipped: false, desc: 'Developer utilities suite' },
-  { id: 'finance',   name: 'Loch Finance',   color: '#22d3ee', sizeMb: 6,  shipped: false, desc: 'Local-first personal finance' },
+  { id: 'macro',     name: 'Loch Macro',     color: '#f97316', sizeMb: 8,  shipped: true,  desc: 'Node-based macro scripting',       githubRelease: 'https://github.com/loch-suite/loch-macro-releases/releases/download/v0.2.0/Loch.Macro_0.2.0_x64-setup.exe',       version: 'v0.2.0' },
+  { id: 'scheduler', name: 'Loch Scheduler', color: '#8b5cf6', sizeMb: 6,  shipped: false, desc: 'Time-aware task orchestration',     githubRelease: null, version: null },
+  { id: 'cookbook',  name: 'Loch Cookbook',  color: '#3b82f6', sizeMb: 5,  shipped: false, desc: 'Personal command recipe book',      githubRelease: null, version: null },
+  { id: 'hardware',  name: 'Loch Hardware',  color: '#10b981', sizeMb: 7,  shipped: true,  desc: 'Hardware monitoring & control',     githubRelease: 'https://github.com/loch-suite/loch-hardware-releases/releases/download/v0.2.3/Loch.Hardware_0.2.3_x64-setup.exe', version: 'v0.2.3' },
+  { id: 'developer', name: 'Loch Developer', color: '#f59e0b', sizeMb: 5,  shipped: false, desc: 'Developer utilities suite',         githubRelease: null, version: null },
+  { id: 'finance',   name: 'Loch Finance',   color: '#22d3ee', sizeMb: 6,  shipped: false, desc: 'Local-first personal finance',      githubRelease: null, version: null },
 ];
 
 export default function SuiteInstallerUI() {
@@ -25,6 +25,7 @@ export default function SuiteInstallerUI() {
 
   const totalMb = APPS.filter(a => selected.has(a.id)).reduce((s, a) => s + a.sizeMb, 0);
   const allShipped = [...selected].every(id => APPS.find(a => a.id === id)?.shipped);
+  const shippedSelected = APPS.filter(a => selected.has(a.id) && a.shipped && a.githubRelease);
 
   return (
     <div className="suite-installer" style={{ fontFamily: '-apple-system, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif' }}>
@@ -102,38 +103,39 @@ export default function SuiteInstallerUI() {
       {/* Generated state */}
       {generated && (
         <div className="generated-panel">
-          {allShipped ? (
+          {shippedSelected.length === 0 ? (
             <>
-              <p className="gen-title">Your custom Loch installer is ready.</p>
+              <p className="gen-title">No shipped apps selected.</p>
               <p className="gen-sub">
-                The suite installer will download and configure only the apps you selected.
+                Select at least one available app (Macro or Hardware) to download.
               </p>
-              <a
-                href="https://github.com/loch-suite/loch-macro-releases/releases/download/v0.2.0/Loch.Macro_0.2.0_x64-setup.exe"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gen-download-btn"
-              >
-                Download Bundle →
-              </a>
             </>
           ) : (
             <>
-              <p className="gen-title">Bundle includes unreleased apps.</p>
-              <p className="gen-sub">
-                Some apps you selected are still in development. The installer will include only
-                shipped apps now and auto-update as others release.
+              <p className="gen-title">
+                {allShipped ? 'Ready to download.' : 'Downloading available apps.'}
               </p>
-              <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-                <a
-                  href="https://github.com/loch-suite/loch-macro-releases/releases/download/v0.2.0/Loch.Macro_0.2.0_x64-setup.exe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gen-download-btn"
-                  style={{ flex: 1, textAlign: 'center' }}
-                >
-                  Download Available Apps →
-                </a>
+              <p className="gen-sub">
+                {allShipped
+                  ? 'Download each app individually below.'
+                  : 'Some selected apps are still in development — download the available ones now.'}
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
+                {shippedSelected.map(app => (
+                  <a
+                    key={app.id}
+                    href={app.githubRelease!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gen-download-btn"
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: app.color, flexShrink: 0 }} />
+                    {app.name}
+                    <span style={{ fontSize: 9, opacity: 0.5, marginLeft: 2 }}>{app.version}</span>
+                    <span style={{ marginLeft: 'auto' }}>↓</span>
+                  </a>
+                ))}
               </div>
             </>
           )}

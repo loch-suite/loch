@@ -51,9 +51,14 @@
       <p style="color: var(--text-muted); font-size: 11px;">
         &copy; {new Date().getFullYear()} Loch Suite &mdash; Apache 2.0
       </p>
-      <p style="color: var(--text-muted); font-size: 11px; letter-spacing: 0.04em;">
-        Built for Windows &middot; No cloud &middot; No tracking
-      </p>
+      <div class="flex items-center gap-4">
+        <a href="https://buymeacoffee.com/vidathegoat" target="_blank" rel="noopener noreferrer" class="bmc-footer-link">
+          Support Loch ♥
+        </a>
+        <p style="color: var(--text-muted); font-size: 11px; letter-spacing: 0.04em;">
+          Built for Windows &middot; No cloud &middot; No tracking
+        </p>
+      </div>
     </div>
   </div>
 </footer>
@@ -69,5 +74,15 @@
   }
   .footer-link:hover {
     color: var(--text-primary);
+  }
+  .bmc-footer-link {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 120ms ease;
+  }
+  .bmc-footer-link:hover {
+    color: var(--text-secondary);
   }
 </style>
