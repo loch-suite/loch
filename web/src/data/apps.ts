@@ -18,7 +18,7 @@ export interface App {
 export const APPS: App[] = [
   {
     id: 'macro',
-    name: 'Loom Macro',
+    name: 'Loch Macro',
     slug: '/macro',
     tagline: 'Node-based macro scripting for Windows.',
     description:
@@ -27,8 +27,8 @@ export const APPS: App[] = [
     colorHex: '#f97316',
     category: 'Trigger',
     shipped: true,
-    version: '0.1.0',
-    githubRelease: 'https://github.com/vidathegoat/loom-macro/releases/latest',
+    version: '0.2.0',
+    githubRelease: 'https://github.com/loch-suite/loch-macro-releases/releases/download/v0.2.0/Loch.Macro_0.2.0_x64-setup.exe',
     icon: 'M',
     sizeMb: 8,
     features: [
@@ -42,7 +42,7 @@ export const APPS: App[] = [
   },
   {
     id: 'scheduler',
-    name: 'Loom Scheduler',
+    name: 'Loch Scheduler',
     slug: '/scheduler',
     tagline: 'Time-aware task orchestration.',
     description:
@@ -56,35 +56,45 @@ export const APPS: App[] = [
   },
   {
     id: 'cookbook',
-    name: 'Loom Cookbook',
+    name: 'Loch Cookbook',
     slug: '/cookbook',
     tagline: 'Your personal command recipe book.',
     description:
       'Save, organize, and execute your most-used command sequences. Browse, search, and run recipes from a clean local interface.',
-    color: 'loom-sensor',
-    colorHex: '#10b981',
-    category: 'Sensor',
+    color: 'loom-action',
+    colorHex: '#3b82f6',
+    category: 'Action',
     shipped: false,
     icon: 'C',
     sizeMb: 5,
   },
   {
     id: 'hardware',
-    name: 'Loom Hardware',
+    name: 'Loch Hardware',
     slug: '/hardware',
     tagline: 'System hardware monitoring and control.',
     description:
       'Monitor temps, manage fans, and switch power profiles. Deep hardware insight without the bloat.',
-    color: 'loom-action',
-    colorHex: '#3b82f6',
-    category: 'Action',
-    shipped: false,
+    color: 'loom-sensor',
+    colorHex: '#10b981',
+    category: 'Sensor',
+    shipped: true,
+    version: '0.2.3',
+    githubRelease: 'https://github.com/loch-suite/loch-hardware-releases/releases/download/v0.2.3/Loch.Hardware_0.2.3_x64-setup.exe',
     icon: 'H',
     sizeMb: 7,
+    features: [
+      'Real-time CPU, GPU, and memory monitoring',
+      'Fan curve editor — set curves by temperature or load',
+      'Power plan switcher with per-profile automatic switching',
+      'Thermal alerts and configurable warning thresholds',
+      'Historical sensor data with local charts',
+      'Low-overhead background service — minimal CPU impact',
+    ],
   },
   {
     id: 'developer',
-    name: 'Loom Developer',
+    name: 'Loch Developer',
     slug: '/developer',
     tagline: 'A toolkit for developers.',
     description:
@@ -98,7 +108,7 @@ export const APPS: App[] = [
   },
   {
     id: 'finance',
-    name: 'Loom Finance',
+    name: 'Loch Finance',
     slug: '/finance',
     tagline: 'Local-first personal finance.',
     description:

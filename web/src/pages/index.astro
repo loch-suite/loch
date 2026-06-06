@@ -27,7 +27,7 @@ import { APPS } from '../data/apps';
 
       <!-- Wordmark -->
       <h1 class="wordmark font-display font-bold uppercase select-none">
-        LOOM
+        LOCH
       </h1>
 
       <!-- Suite label -->
@@ -39,21 +39,19 @@ import { APPS } from '../data/apps';
 
       <!-- Tagline -->
       <p class="tagline" style="color: var(--text-secondary); max-width: 520px;">
-        Six apps. One design language. Zero cloud.<br/>
-        <span style="color: var(--text-muted); font-size: 0.9em;">Offline-first utilities for Windows — your data stays on your machine.</span>
+        Precision tools for Windows power users.
+      </p>
+      <p style="font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em;">
+        Local-first. No accounts. No telemetry.
       </p>
 
       <!-- CTAs -->
       <div class="flex flex-wrap items-center justify-center gap-3 mt-1">
-        <a href="#suite" class="cta-primary">
-          Explore the Suite
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" class="ml-1.5">
-            <path d="M6.5 2v9M2 6.5l4.5 4.5 4.5-4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <a href="/macro" class="cta-primary-orange">
+          Download Macro →
         </a>
-        <a href="/macro" class="cta-macro">
-          <span class="macro-live-dot"></span>
-          Macro · v0.1.0 available
+        <a href="#suite" class="cta-secondary">
+          Explore the Suite
         </a>
       </div>
 
@@ -62,7 +60,7 @@ import { APPS } from '../data/apps';
         {APPS.map(app => (
           <a href={app.slug} class="app-chip" style={`--ac: ${app.colorHex};`}>
             <span class="chip-dot" style={`background: ${app.colorHex};`}></span>
-            <span class="chip-name">{app.name.replace('Loom ', '')}</span>
+            <span class="chip-name">{app.name.replace('Loch ', '')}</span>
             {app.shipped
               ? <span class="chip-badge chip-live">Live</span>
               : <span class="chip-badge chip-soon">Soon</span>
@@ -86,7 +84,7 @@ import { APPS } from '../data/apps';
         <span class="label-section">The Suite</span>
         <h2 class="section-heading">A tool for every workflow.</h2>
         <p style="color: var(--text-secondary); font-size: 14px; max-width: 500px; margin-top: 6px; line-height: 1.7;">
-          Each Loom app is standalone, offline-first, and shares the same design language.
+          Each Loch app is standalone, offline-first, and shares the same design language.
           Build your own stack — use one app or all six.
         </p>
       </div>
@@ -138,33 +136,85 @@ import { APPS } from '../data/apps';
               Your data lives on your machine.
             </h2>
             <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">
-              Every Loom app stores its data locally in an open, inspectable format.
+              Every Loch app stores its data locally in an open, inspectable format.
               No sync servers. No vendor lock-in. No subscriptions. You can open your data
               folder, read it, back it up, or delete it at any time.
             </p>
             <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
               We believe desktop software should respect your machine and your privacy.
-              Loom runs entirely offline — no telemetry, no analytics, no internet required.
+              Loch runs entirely offline — no telemetry, no analytics, no internet required.
             </p>
           </div>
 
           <div class="flex flex-col gap-3">
             {[
-              { icon: '⊙', label: 'Offline first',   desc: 'No internet connection needed. Ever.' },
-              { icon: '◫', label: 'Open data',        desc: 'Your files in plain, inspectable formats.' },
-              { icon: '◻', label: 'No accounts',      desc: 'No sign-up, no login, no email required.' },
-              { icon: '○', label: 'No telemetry',     desc: 'Zero data sent anywhere — guaranteed.' },
-            ].map(({ icon, label, desc }) => (
+              {
+                label: 'Local-first',
+                desc: 'Your data never leaves your machine. No cloud sync, no accounts, no servers.',
+                svg: '<rect x="2" y="3" width="16" height="14" rx="2"/><path d="M6 7h.01M6 10h.01M6 13h.01M9 7h5M9 10h5M9 13h3"/>',
+              },
+              {
+                label: 'Private by design',
+                desc: 'No telemetry. No analytics. No crash reporting phoning home.',
+                svg: '<rect x="5" y="9" width="10" height="8" rx="1.5"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9"/><circle cx="10" cy="13" r="1"/>',
+              },
+              {
+                label: 'Suite-native',
+                desc: 'Every Loch app shares the same tokens, themes, and license system.',
+                svg: '<path d="M10 2L3 6v4c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-4z"/><path d="M7 10l2 2 4-4"/>',
+              },
+              {
+                label: 'Windows-native',
+                desc: 'Built with Tauri 2 for a tight, native Windows experience — not Electron.',
+                svg: '<rect x="2" y="3" width="16" height="13" rx="2"/><path d="M2 7h16"/><circle cx="5" cy="5" r="0.75" fill="currentColor" stroke="none"/><circle cx="8" cy="5" r="0.75" fill="currentColor" stroke="none"/>',
+              },
+            ].map(({ svg, label, desc }) => (
               <div class="flex items-start gap-4 p-4 rounded-panel" style="background: var(--bg-base); border: 1px solid var(--border-faint);">
-                <span class="text-lg mt-0.5 flex-shrink-0" style="color: var(--text-muted);">{icon}</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                     style="color: var(--text-muted); flex-shrink: 0; margin-top: 1px;" set:html={svg} />
                 <div>
                   <p class="text-sm font-semibold mb-1" style="color: var(--text-primary);">{label}</p>
-                  <p style="font-size: 12px; color: var(--text-muted);">{desc}</p>
+                  <p style="font-size: 12px; color: var(--text-secondary);">{desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Themes teaser ──────────────────────────────────────────── -->
+  <section class="relative px-6 py-20" style="background: var(--bg-elevated); border-top: 1px solid var(--border-faint);">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8 flex flex-col gap-1">
+        <span class="label-section">Themes</span>
+        <h2 class="section-heading" style="font-size: clamp(1.2rem, 3vw, 1.8rem);">13 themes. Free and premium.</h2>
+        <p class="text-sm mt-1" style="color: var(--text-secondary); max-width: 420px;">
+          Every Loch app ships with the same theme system — switch once, update everywhere.
+        </p>
+      </div>
+      <div class="themes-strip">
+        {[
+          { name: 'Dusk',       bg: '#0a0a0c', pro: false },
+          { name: 'Ash',        bg: '#0c0d11', pro: false },
+          { name: 'Slate',      bg: '#060607', pro: false },
+          { name: 'Fog',        bg: '#f0ede8', pro: false, dark: true },
+          { name: 'Desert',     bg: '#0c0a06', pro: false },
+          { name: 'Forest',     bg: '#060a06', pro: false },
+          { name: 'Plum',       bg: '#080610', pro: false },
+          { name: 'Arctic',     bg: '#040810', pro: false },
+          { name: 'Rust',       bg: '#0c0706', pro: false },
+          { name: 'Volcanic',   bg: '#0c0705', pro: true },
+          { name: 'Depths',     bg: '#040c0e', pro: true },
+          { name: 'Pixel City', bg: '#0a0806', pro: true },
+          { name: 'Fireflies',  bg: '#030304', pro: true },
+        ].map(({ name, bg, pro, dark }) => (
+          <div class="theme-swatch" style={`background: ${bg};`}>
+            <span class="swatch-label" style={dark ? 'color: rgba(10,10,12,0.5);' : ''}>{name.toUpperCase()}</span>
+            {pro && <span class="swatch-pro">PRO</span>}
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -175,13 +225,13 @@ import { APPS } from '../data/apps';
       <span class="label-section mb-4 block">Get started</span>
       <h2 class="section-heading mb-2">The suite is growing.</h2>
       <p class="text-sm mb-2" style="color: var(--text-secondary);">
-        Macro is the first app — available now, free, no accounts.
+        Loch Macro is the first app — available now, free, no accounts.
       </p>
       <p class="text-xs mb-8" style="color: var(--text-muted);">
-        Five more apps are in development. Subscribe for updates or check back.
+        Five more apps are in development. Check back or watch the GitHub releases.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-3">
-        <a href="/macro"     class="cta-primary-orange">Download Macro v0.1.0 →</a>
+        <a href="/macro"     class="cta-primary-orange">Download Macro →</a>
         <a href="/downloads" class="cta-secondary">View all downloads</a>
       </div>
     </div>
@@ -403,4 +453,44 @@ import { APPS } from '../data/apps';
   }
 
   .philosophy-panel { background: var(--bg-raised); }
+
+  /* ── Themes strip ──────────────────────────────────────────────── */
+  .themes-strip {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .themes-strip::-webkit-scrollbar { display: none; }
+
+  .theme-swatch {
+    flex: 0 0 76px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 6px;
+    gap: 3px;
+    position: relative;
+  }
+
+  .swatch-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  .swatch-pro {
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--variable);
+    border: 1px solid rgba(245,158,11,0.35);
+    border-radius: 2px;
+    padding: 1px 4px;
+  }
 </style>

@@ -2,8 +2,8 @@
 // Ported from Loom Macro. No external dependencies.
 // Algorithm: domain-warped FBM → marching squares → Chaikin smoothing → canvas path.
 
-const SEED_X = Math.random() * 100;
-const SEED_Y = Math.random() * 100;
+const SEED_X = 42.0;
+const SEED_Y = 73.5;
 
 const GRID_W = 200;
 const GRID_H = 150;

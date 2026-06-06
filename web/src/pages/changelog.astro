@@ -13,12 +13,51 @@ type Entry = {
 
 const CHANGELOG: Entry[] = [
   {
-    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.1.0', date: '2025-12-01', type: 'major',
+    app: 'Loch Hardware', appId: 'hardware', color: '#10b981', ver: '0.2.3', date: '2026-05-20', type: 'minor',
+    items: [
+      'Startup Manager — view and toggle Windows startup items from registry and startup folders',
+      'Files panel — treemap disk space explorer, directory tree drill-down, and installed programs list',
+      'Launch uninstallers directly from the installed programs list',
+      'Delete files and folders from within the app',
+      'Auto-updater — check for updates, download with progress bar, restart to apply',
+      'Celsius / Fahrenheit temperature toggle in settings',
+      'Data folder shortcut opens SQLite app data directory in Explorer',
+      'Reset all data — wipes alert rules, history, and preferences',
+    ],
+  },
+  {
+    app: 'Loch Macro', appId: 'macro', color: '#f97316', ver: '0.2.0', date: '2026-04-15', type: 'minor',
+    items: [
+      'Copy / paste nodes — single node and multi-select, preserves internal edges (Ctrl+C / Ctrl+V)',
+      'Box selection on canvas — drag to select multiple nodes at once',
+      'Duplicate node shortcut (Ctrl+D)',
+      'Improved node execution indicator — category-color pulse ring per node',
+      'Fixed profile switch occasionally clearing unsaved canvas changes',
+    ],
+  },
+  {
+    app: 'Loch Hardware', appId: 'hardware', color: '#10b981', ver: '0.1.0', date: '2026-03-10', type: 'major',
     items: [
       'Initial public release',
-      'Visual node canvas with 20+ node types',
+      'Dashboard with live metric cards — CPU, RAM, GPU, Storage, Network, Top Process',
+      'Animated sparklines and arc gauges; cards pulse amber when an alert fires',
+      'CPU / GPU / RAM detail panels with usage %, temperatures, model names, and history graphs',
+      'Per-drive storage fill bars showing used / total across all connected drives',
+      'Live network upload / download throughput for the active adapter',
+      'Full process list sortable by CPU or RAM — kill process tree with one click',
+      'Alert system — threshold rules (e.g. CPU > 90%) persisted to SQLite, in-app notifications',
+      'Theme picker — Depths, Fireflies, Pixel City, Volcanic (premium themes require license)',
+      'Configurable poll interval 0.5s – 5s, launch on startup, minimize to tray',
+      'Rust / Tauri 2 backend using sysinfo, emitting metrics via Tauri events',
+    ],
+  },
+  {
+    app: 'Loch Macro', appId: 'macro', color: '#f97316', ver: '0.1.0', date: '2025-12-01', type: 'major',
+    items: [
+      'Initial public release',
+      'Visual node canvas with 20+ built-in node types',
       'Keyboard, mouse, timer, and hotkey trigger nodes',
-      'Variable engine with read/write/transform nodes',
+      'Variable engine with read / write / transform nodes',
       'Humanize mode for realistic timing variation',
       'Multiple macro profiles with instant switching',
       'Arm-to-hotkey for always-ready macro execution',
@@ -26,17 +65,15 @@ const CHANGELOG: Entry[] = [
     ],
   },
   {
-    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.9.0', date: '2025-10-14', type: 'minor',
+    app: 'Loch Macro', appId: 'macro', color: '#f97316', ver: '0.9.0', date: '2025-10-14', type: 'minor',
     items: [
-      'Added Catmull-Rom spline rendering for topographic background',
-      'Added Chaikin smoothing (3 passes) to contour lines',
-      'Improved domain-warp FBM algorithm — smoother morph cycle',
+      'Topographic background — domain-warped FBM with Chaikin smoothing (3 passes)',
       'Node execution now shows animated category-color pulse ring',
       'Fixed sidebar collapsible sections losing state on profile switch',
     ],
   },
   {
-    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.8.2', date: '2025-09-03', type: 'patch',
+    app: 'Loch Macro', appId: 'macro', color: '#f97316', ver: '0.8.2', date: '2025-09-03', type: 'patch',
     items: [
       'Fixed hotkey capture not releasing on window blur',
       'Fixed node drag snapping off-grid at high DPI',
@@ -44,19 +81,19 @@ const CHANGELOG: Entry[] = [
     ],
   },
   {
-    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.8.0', date: '2025-08-20', type: 'minor',
+    app: 'Loch Macro', appId: 'macro', color: '#f97316', ver: '0.8.0', date: '2025-08-20', type: 'minor',
     items: [
       'Arm mode — arm a single macro to a system-wide hotkey',
-      'Added If / Else conditional nodes to flow control',
-      'Added Loop node with configurable iteration count',
+      'If / Else conditional nodes',
+      'Loop node with configurable iteration count',
       'Reroute nodes for clean edge routing on large canvases',
       'Profile import / export as portable JSON',
     ],
   },
   {
-    app: 'Loom Macro', appId: 'macro', color: '#f97316', ver: '0.5.0', date: '2025-06-10', type: 'minor',
+    app: 'Loch Macro', appId: 'macro', color: '#f97316', ver: '0.5.0', date: '2025-06-10', type: 'minor',
     items: [
-      'First internal beta release',
+      'First internal beta',
       'Core node canvas with React Flow',
       'Basic trigger, action, and delay node types',
       'Tauri 2 app shell with custom titlebar',
@@ -65,8 +102,9 @@ const CHANGELOG: Entry[] = [
 ];
 
 const ALL_APPS = [
-  { id: 'all',   label: 'All Apps' },
-  { id: 'macro', label: 'Macro'    },
+  { id: 'all',      label: 'All Apps' },
+  { id: 'macro',    label: 'Macro'    },
+  { id: 'hardware', label: 'Hardware' },
 ];
 ---
 
@@ -78,7 +116,7 @@ const ALL_APPS = [
       <span class="label-section mb-3 block">Changelog</span>
       <h1 class="page-title font-loom font-bold uppercase tracking-brand mb-4">What's new.</h1>
       <p style="color: var(--text-secondary); font-size: 15px;">
-        Version history across all Loom apps. New releases are announced on GitHub.
+        Version history across all Loch apps. New releases are announced on GitHub.
       </p>
     </div>
   </section>

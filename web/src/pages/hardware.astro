@@ -1,20 +1,221 @@
 ---
-import ComingSoonPage from '../components/ComingSoonPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { APPS } from '../data/apps';
+
+const app = APPS.find(a => a.id === 'hardware')!;
+const COLOR = app.colorHex; // #10b981
+
+const features = [
+  {
+    title: 'Dashboard',
+    desc: 'Animated metric cards for CPU, RAM, GPU, Storage, Network, and Top Process — live sparklines and arc gauges, pulsing amber when an alert fires. Click any card to drill into the detail panel.',
+    svg: '<rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/>',
+  },
+  {
+    title: 'CPU · GPU · RAM',
+    desc: 'Detailed compute panels with usage percentages, temperatures (°C or °F), model names, and live-updating history graphs.',
+    svg: '<rect x="5" y="5" width="10" height="10" rx="1"/><path d="M8 2v3M12 2v3M8 15v3M12 15v3M2 8h3M2 12h3M15 8h3M15 12h3"/>',
+  },
+  {
+    title: 'Storage & Network',
+    desc: 'Per-drive usage fill bars across all connected drives ranked by usage, plus live upload/download throughput for the active network adapter.',
+    svg: '<ellipse cx="10" cy="6" rx="7" ry="2.5"/><path d="M3 6v8c0 1.38 3.13 2.5 7 2.5s7-1.12 7-2.5V6"/><path d="M3 10c0 1.38 3.13 2.5 7 2.5s7-1.12 7-2.5"/>',
+  },
+  {
+    title: 'Process Manager',
+    desc: 'Full process list sortable by CPU or RAM usage. Kill any process tree with one click.',
+    svg: '<path d="M4 6h12M4 10h8M4 14h10"/><path d="M15 12l2.5 2.5M17.5 12L15 14.5"/>',
+  },
+  {
+    title: 'Startup Manager',
+    desc: 'View and toggle Windows startup items read from the registry and startup folders — enable or disable entries without leaving the app.',
+    svg: '<path d="M10 3v6"/><path d="M6.3 5.3a7 7 0 1 0 7.4 0"/>',
+  },
+  {
+    title: 'Disk Explorer',
+    desc: 'Treemap visualization for browsing folder sizes, a directory tree for drilling down, and an installed programs list with direct uninstaller launch and in-app file deletion.',
+    svg: '<rect x="2" y="3" width="7" height="14" rx="1"/><rect x="11" y="3" width="7" height="6" rx="1"/><rect x="11" y="11" width="7" height="6" rx="1"/>',
+  },
+  {
+    title: 'Alerts',
+    desc: 'Threshold-based rules (e.g. "CPU > 90%") persisted to SQLite. The matching dashboard card pulses amber and an in-app notification fires when triggered.',
+    svg: '<path d="M10 2a6 6 0 0 0-6 6v3.5L2.5 14h15L16 11.5V8a6 6 0 0 0-6-6z"/><path d="M8.5 17a1.5 1.5 0 0 0 3 0"/>',
+  },
+  {
+    title: 'Offline & Private',
+    desc: 'No accounts. No cloud sync. No telemetry. Sensor data and alert rules live in a local SQLite file you can open or delete at any time.',
+    svg: '<path d="M10 2L3 5.5v5c0 3.8 3 7.2 7 8 4-.8 7-4.2 7-8v-5L10 2z"/><rect x="7.5" y="9.5" width="5" height="4" rx="0.75"/><path d="M8.5 9.5V8a1.5 1.5 0 0 1 3 0v1.5"/>',
+  },
+];
 ---
-<ComingSoonPage
-  id="hardware"
-  name="Loom Hardware"
-  tagline="System hardware monitoring and control."
-  description="Monitor temperatures, manage fan curves, and switch power profiles. Deep hardware insight without the bloat — everything you need, nothing you don't."
-  colorHex="#3b82f6"
-  category="Action"
-  icon="H"
-  features={[
-    'Real-time CPU, GPU, and memory monitoring',
-    'Fan curve editor — set curves by temperature or load',
-    'Power plan switcher with per-profile automatic switching',
-    'Thermal alerts and configurable warning thresholds',
-    'Historical sensor data with local charts',
-    'Low-overhead background service — minimal CPU impact',
-  ]}
-/>
+
+<BaseLayout title="Hardware" description="Loch Hardware — Real-time hardware monitoring for Windows. CPU, GPU, RAM, fans, and more." activePage="/hardware">
+
+  <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+  <section class="relative min-h-[70vh] flex flex-col items-center justify-center px-6 text-center pt-20">
+    <div class="hero-glow" aria-hidden="true" style={`--app-color: ${COLOR};`}></div>
+
+    <div class="relative z-10 flex flex-col items-center gap-5 max-w-3xl">
+      <div class="flex items-center gap-2">
+        <div class="app-icon-lg flex items-center justify-center font-bold text-2xl"
+             style={`color: ${COLOR}; background: ${COLOR}18; border: 1px solid ${COLOR}30;`}>
+          H
+        </div>
+        <span class="label-section tracking-section" style={`color: ${COLOR};`}>Sensor · Loch Suite</span>
+      </div>
+
+      <h1 class="page-title font-loom font-bold uppercase tracking-brand">
+        Loch Hardware
+      </h1>
+      <p class="page-sub" style="color: var(--text-secondary); max-width: 520px;">
+        Real-time hardware monitoring for Windows.<br/>
+        CPU, GPU, RAM, drives, and network — all in a compact overlay.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
+        <a href={app.githubRelease}
+           target="_blank" rel="noopener noreferrer"
+           class="cta-download" style={`--c: ${COLOR};`}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="mr-1.5">
+            <path d="M7 2v7M4 6.5L7 9.5L10 6.5M2.5 11.5h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download v{app.version}
+        </a>
+        <span class="text-xs" style="color: var(--text-muted);">Windows 10/11 &middot; ~{app.sizeMb}MB &middot; Free</span>
+      </div>
+
+      <div class="version-pill">
+        <span class="version-dot" style={`background: ${COLOR}; box-shadow: 0 0 6px ${COLOR}80;`}></span>
+        Latest release: v{app.version} — stable
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Features ──────────────────────────────────────────────────── -->
+  <section class="relative px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <span class="label-section mb-2 block">Features</span>
+        <h2 class="section-heading">Everything you need to monitor.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {features.map(f => (
+          <div class="feature-card node-card p-5">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                 class="feature-icon mb-3" style={`color: ${COLOR};`} set:html={f.svg} />
+            <h3 class="text-sm font-semibold mb-2 tracking-tight" style="color: var(--text-primary);">{f.title}</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Download CTA ─────────────────────────────────────────────── -->
+  <section class="relative px-6 pb-32 text-center">
+    <div class="max-w-lg mx-auto">
+      <span class="label-section mb-4 block">Get started</span>
+      <h2 class="section-heading mb-4" style="font-size: clamp(1.4rem, 4vw, 2rem);">Free. No accounts.</h2>
+      <p class="text-sm mb-8" style="color: var(--text-secondary); max-width: 380px; margin: 0 auto 2rem;">
+        Download once. Runs entirely offline. Your sensor data stays on your machine.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href={app.githubRelease}
+           target="_blank" rel="noopener noreferrer"
+           class="cta-download-lg" style={`--c: ${COLOR};`}>
+          Download Hardware v{app.version} →
+        </a>
+        <a href="/" class="cta-secondary-sm">View full suite</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -65%);
+    width: 600px; height: 350px;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--app-color) 7%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .app-icon-lg {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+  }
+
+  .page-title {
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    line-height: 1;
+    color: var(--text-primary);
+  }
+
+  .page-sub {
+    font-size: clamp(14px, 2vw, 17px);
+    line-height: 1.7;
+  }
+
+  .cta-download {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+    color: var(--c);
+    transition: background 180ms ease, transform 120ms ease;
+  }
+  .cta-download:hover {
+    background: color-mix(in srgb, var(--c) 20%, transparent);
+    transform: translateY(-1px);
+  }
+
+  .version-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 12px; border-radius: 99px;
+    font-size: 11px; font-weight: 500;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+  }
+  .version-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  .section-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700; letter-spacing: 0.02em;
+    color: var(--text-primary); line-height: 1.15;
+  }
+
+  .feature-card { transition: transform 150ms ease; }
+  .feature-card:hover { transform: translateY(-1px); }
+  .feature-icon { display: block; flex-shrink: 0; }
+
+  .cta-download-lg {
+    display: inline-flex; align-items: center;
+    padding: 11px 24px; border-radius: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+    color: var(--c);
+    transition: background 180ms, transform 120ms;
+  }
+  .cta-download-lg:hover { background: color-mix(in srgb, var(--c) 20%, transparent); transform: translateY(-1px); }
+
+  .cta-secondary-sm {
+    display: inline-flex; align-items: center;
+    padding: 11px 22px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+    text-decoration: none;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    transition: background 180ms, color 120ms;
+  }
+  .cta-secondary-sm:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
+</style>

@@ -9,32 +9,32 @@ const features = [
   {
     title: 'Visual Flow Editor',
     desc: 'Drag-and-drop canvas with 20+ built-in node types. Build complex macros by connecting nodes — no code, no syntax, no friction.',
-    icon: '◈',
+    svg: '<circle cx="5" cy="10" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="15" cy="15" r="2"/><path d="M7 10h3a1 1 0 0 0 1-1V6M7 10h3a1 1 0 0 1 1 1v3"/>',
   },
   {
     title: 'Trigger System',
     desc: 'Keyboard shortcuts, timers, window focus events, and hotkeys. Your macro starts exactly when and how you define.',
-    icon: '⚡',
+    svg: '<path d="M10 2v6l3 3"/><circle cx="10" cy="10" r="8"/>',
   },
   {
     title: 'Humanize Mode',
     desc: 'Adds subtle, realistic timing variation to mouse and keyboard actions. Macros feel human — because sometimes that matters.',
-    icon: '◌',
+    svg: '<path d="M2 12c1.5-4 4-6 8-6s6.5 2 8 6"/><path d="M5 15c1-2.5 2.5-4 5-4s4 1.5 5 4"/><circle cx="10" cy="17" r="1.5"/>',
   },
   {
     title: 'Variable Engine',
     desc: 'Store, read, and transform values as your macro runs. Conditionals, loops, and dynamic data without writing a single line of code.',
-    icon: '{ }',
+    svg: '<path d="M4 6h3l2 8h2l2-8h3"/><path d="M3 14h14"/>',
   },
   {
     title: 'Multiple Profiles',
     desc: 'Organize macros by app, context, or project. Switch profiles instantly — and arm a specific macro to an always-ready hotkey.',
-    icon: '⊞',
+    svg: '<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="11" y="3" width="6" height="6" rx="1"/><rect x="3" y="11" width="6" height="6" rx="1"/><rect x="11" y="11" width="6" height="6" rx="1"/>',
   },
   {
     title: 'Offline & Private',
-    desc: 'No accounts. No cloud sync. No telemetry. Loom Macro stores everything in an open JSON format on your machine.',
-    icon: '⊙',
+    desc: 'No accounts. No cloud sync. No telemetry. Loch Macro stores everything in an open JSON format on your machine.',
+    svg: '<path d="M10 2L3 5.5v5c0 3.8 3 7.2 7 8 4-.8 7-4.2 7-8v-5L10 2z"/><path d="M7 10l2 2 4-4"/>',
   },
 ];
 
@@ -50,7 +50,7 @@ const nodeTypes = [
 ];
 ---
 
-<BaseLayout title="Macro" description="Loom Macro — Node-based macro scripting for Windows. Automate anything." activePage="/macro">
+<BaseLayout title="Macro" description="Loch Macro — Node-based macro scripting for Windows. Automate anything." activePage="/macro">
 
   <!-- ─── Hero ──────────────────────────────────────────────────────── -->
   <section class="relative min-h-[70vh] flex flex-col items-center justify-center px-6 text-center pt-20">
@@ -62,11 +62,11 @@ const nodeTypes = [
              style={`color: ${COLOR}; background: ${COLOR}18; border: 1px solid ${COLOR}30;`}>
           M
         </div>
-        <span class="label-section tracking-section" style={`color: ${COLOR};`}>Trigger · Loom Suite</span>
+        <span class="label-section tracking-section" style={`color: ${COLOR};`}>Trigger · Loch Suite</span>
       </div>
 
       <h1 class="page-title font-loom font-bold uppercase tracking-brand">
-        Loom Macro
+        Loch Macro
       </h1>
       <p class="page-sub" style="color: var(--text-secondary); max-width: 520px;">
         Node-based macro scripting for Windows.<br/>
@@ -104,7 +104,9 @@ const nodeTypes = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {features.map(f => (
           <div class="feature-card node-card p-5">
-            <div class="feature-icon mb-3" style={`color: ${COLOR};`}>{f.icon}</div>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                 class="feature-icon mb-3" style={`color: ${COLOR};`} set:html={f.svg} />
             <h3 class="text-sm font-semibold mb-2 tracking-tight" style="color: var(--text-primary);">{f.title}</h3>
             <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">{f.desc}</p>
           </div>
@@ -278,8 +280,8 @@ const nodeTypes = [
   .feature-card { transition: transform 180ms ease; }
   .feature-card:hover { transform: translateY(-2px); }
   .feature-icon {
-    font-size: 18px;
-    font-family: monospace;
+    display: block;
+    flex-shrink: 0;
     letter-spacing: -0.02em;
   }
 

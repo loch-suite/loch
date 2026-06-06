@@ -4,19 +4,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="About"
-  description="The story and philosophy behind Loom — offline-first, privacy-respecting desktop utilities for Windows."
+  description="The story and philosophy behind Loch — offline-first, privacy-respecting desktop utilities for Windows."
   activePage="/about"
 >
 
   <!-- ─── Header ──────────────────────────────────────────────────── -->
   <section class="relative px-6 pt-32 pb-16 text-center">
     <div class="max-w-2xl mx-auto">
-      <span class="label-section mb-3 block">About Loom</span>
+      <span class="label-section mb-3 block">About Loch</span>
       <h1 class="page-title font-loom font-bold uppercase tracking-brand mb-5">
         Built for your machine.
       </h1>
       <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.7; max-width: 480px; margin: 0 auto;">
-        Loom is a suite of offline-first desktop utilities for Windows, built on the belief that
+        Loch is a suite of offline-first desktop utilities for Windows, built on the belief that
         good software respects the machine it runs on — and the person running it.
       </p>
     </div>
@@ -29,7 +29,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="label-section mb-4 block">The story</span>
         <div class="prose-loom">
           <p>
-            Loom started as a personal tool. The first app — Loom Macro — grew out of a simple
+            Loch started as a personal tool. The first app — Loch Macro — grew out of a simple
             frustration: every macro and automation tool I tried either required a subscription,
             phoned home, or hid your data behind an opaque sync engine.
           </p>
@@ -39,7 +39,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             Nothing more, nothing less.
           </p>
           <p>
-            That approach turned out to define something bigger. Every Loom app follows the same
+            That approach turned out to define something bigger. Every Loch app follows the same
             rule: your data lives on your machine. Not in our cloud. Not in our database.
             On your disk, in a folder you can open in Notepad if you feel like it.
           </p>
@@ -58,7 +58,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="max-w-3xl mx-auto">
       <div class="mb-8">
         <span class="label-section mb-2 block">Principles</span>
-        <h2 class="section-heading">What Loom stands for.</h2>
+        <h2 class="section-heading">What Loch stands for.</h2>
       </div>
 
       <div class="flex flex-col gap-3">
@@ -66,12 +66,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           {
             n: '01',
             title: 'Offline first, always.',
-            body: 'Every Loom app runs without an internet connection. There are no sync servers, no cloud APIs, no telemetry endpoints. If your machine is offline, Loom still works.',
+            body: 'Every Loch app runs without an internet connection. There are no sync servers, no cloud APIs, no telemetry endpoints. If your machine is offline, Loch still works.',
           },
           {
             n: '02',
             title: 'Your data is yours.',
-            body: 'Loom apps store data in open, documented formats. You can read the files in a text editor, import them into another tool, or delete them without asking us first.',
+            body: 'Loch apps store data in open, documented formats. You can read the files in a text editor, import them into another tool, or delete them without asking us first.',
           },
           {
             n: '03',
@@ -81,12 +81,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           {
             n: '04',
             title: 'Transparent about data.',
-            body: 'Every Loom app exposes its data folder in-app. You can see exactly where your data lives, open it, inspect it, or delete it with one click — no support ticket required.',
+            body: 'Every Loch app exposes its data folder in-app. You can see exactly where your data lives, open it, inspect it, or delete it with one click — no support ticket required.',
           },
           {
             n: '05',
             title: 'Source-available.',
-            body: 'Loom apps are source-available under the Apache-2.0 license. You can read the code and verify every privacy claim yourself — no black boxes.',
+            body: 'Loch apps are source-available under the Apache-2.0 license. You can read the code and verify every privacy claim yourself — no black boxes.',
           },
         ].map(p => (
           <div class="node-card p-6">
@@ -118,7 +118,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
 
         <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary);">
-          Every Loom app includes an "Open data folder" button in its settings panel.
+          Every Loch app includes an "Open data folder" button in its settings panel.
           One click opens your file explorer to the exact directory where the app stores its data.
           The format is always documented plain text — JSON or similar.
         </p>
@@ -130,7 +130,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           <div class="data-panel-row">
             <span style="font-size: 12px; color: var(--text-secondary);">Data location</span>
-            <code style="font-size: 11px; font-family: monospace; color: var(--text-muted);">%APPDATA%\Loom\Macro</code>
+            <code style="font-size: 11px; font-family: monospace; color: var(--text-muted);">%APPDATA%\Loch\Macro</code>
           </div>
           <div class="data-panel-row">
             <span style="font-size: 12px; color: var(--text-secondary);">Format</span>
@@ -155,7 +155,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <span class="label-section mb-4 block">Source available</span>
       <h2 class="section-heading mb-4">Read the code.</h2>
       <p class="text-sm mb-8" style="color: var(--text-secondary); max-width: 380px; margin: 0 auto 2rem;">
-        Loom apps are source-available under the Apache-2.0 license. Verify every privacy claim yourself.
+        Loch apps are source-available under the Apache-2.0 license. Verify every privacy claim yourself.
       </p>
       <a href="https://github.com/vidathegoat"
          target="_blank" rel="noopener noreferrer"

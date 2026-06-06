@@ -27,7 +27,7 @@ const links = [
       </svg>
       <span class="font-display font-bold uppercase tracking-brand text-sm group-hover:opacity-100"
             style="color: var(--text-primary); opacity: 0.85; letter-spacing: 0.14em; transition: opacity 120ms ease;">
-        LOOM
+        LOCH
       </span>
     </a>
 
@@ -46,8 +46,8 @@ const links = [
              style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); padding: 6px;">
           <a href="/macro"     class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-trigger inline-block mr-2"></span>Macro <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-chip bg-loom-trigger/10 text-loom-trigger font-bold tracking-button uppercase">Live</span></a>
           <a href="/scheduler" class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-flow     inline-block mr-2"></span>Scheduler</a>
-          <a href="/cookbook"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-sensor   inline-block mr-2"></span>Cookbook</a>
-          <a href="/hardware"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-action   inline-block mr-2"></span>Hardware</a>
+          <a href="/cookbook"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-action   inline-block mr-2"></span>Cookbook</a>
+          <a href="/hardware"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-sensor  inline-block mr-2"></span>Hardware <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-chip bg-loom-sensor/10 text-loom-sensor font-bold tracking-button uppercase">Live</span></a>
           <a href="/developer" class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-variable inline-block mr-2"></span>Developer</a>
           <a href="/finance"   class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-cyan    inline-block mr-2"></span>Finance</a>
         </div>
@@ -79,7 +79,7 @@ const links = [
       <a href="/macro"     class="mobile-link">Macro <span class="badge-coming-soon ml-2" style="color: #f97316; border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.1);">Live</span></a>
       <a href="/scheduler" class="mobile-link">Scheduler</a>
       <a href="/cookbook"  class="mobile-link">Cookbook</a>
-      <a href="/hardware"  class="mobile-link">Hardware</a>
+      <a href="/hardware"  class="mobile-link">Hardware <span class="badge-coming-soon ml-2" style="color: #10b981; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.1);">Live</span></a>
       <a href="/developer" class="mobile-link">Developer</a>
       <a href="/finance"   class="mobile-link">Finance</a>
       <div class="my-2 border-t" style="border-color: var(--border-faint);"></div>
@@ -136,28 +136,15 @@ const links = [
   .mobile-link:last-child { border-bottom: none; }
   .mobile-link:hover { color: var(--text-primary); }
 
-  /* Border is always 1px — only COLOR transitions to avoid the width-0→1 flash */
   #loom-nav {
-    border-bottom: 1px solid transparent;
-    background: transparent;
-    /* Transition background and border-color only — never border-width */
-    transition: background 280ms ease, border-color 280ms ease, backdrop-filter 280ms ease;
-  }
-  #loom-nav.scrolled {
-    background: rgba(10, 10, 12, 0.82);
-    backdrop-filter: blur(14px);
-    border-color: rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(17, 17, 20, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 </style>
 
 <script>
-  // Scroll-aware nav bg
-  const nav = document.getElementById('loom-nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) nav?.classList.add('scrolled');
-    else nav?.classList.remove('scrolled');
-  }, { passive: true });
-
   // Mobile menu toggle
   document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
     document.getElementById('mobile-menu')?.classList.toggle('hidden');

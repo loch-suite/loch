@@ -16,9 +16,14 @@ export default function TopoBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const STORAGE_KEY = 'loch-topo-t';
     const dpr = window.devicePixelRatio || 1;
     let animId = 0;
     let startTime: number | null = null;
+    let currentT = 0;
+
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    const tBase = stored ? parseFloat(stored) : 0;
 
     function resize() {
       if (!canvas) return;
@@ -38,20 +43,26 @@ export default function TopoBackground() {
     function frame(ts: number) {
       if (!canvas || !ctx) return;
       if (startTime === null) startTime = ts;
-      const t = ((ts - startTime) / 1000) * TIME_SPEED;
-      drawContoursAt(ctx, canvas, t);
+      currentT = tBase + ((ts - startTime) / 1000) * TIME_SPEED;
+      drawContoursAt(ctx, canvas, currentT);
       animId = requestAnimationFrame(frame);
+    }
+
+    function saveT() {
+      sessionStorage.setItem(STORAGE_KEY, String(currentT));
     }
 
     resize();
     window.addEventListener('resize', resize, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('beforeunload', saveT);
     animId = requestAnimationFrame(frame);
 
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('beforeunload', saveT);
     };
   }, []);
 

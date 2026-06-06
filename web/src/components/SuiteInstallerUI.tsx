@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 const APPS = [
-  { id: 'macro',     name: 'Loom Macro',     color: '#f97316', sizeMb: 8,  shipped: true,  desc: 'Node-based macro scripting' },
-  { id: 'scheduler', name: 'Loom Scheduler', color: '#8b5cf6', sizeMb: 6,  shipped: false, desc: 'Time-aware task orchestration' },
-  { id: 'cookbook',  name: 'Loom Cookbook',  color: '#10b981', sizeMb: 5,  shipped: false, desc: 'Personal command recipe book' },
-  { id: 'hardware',  name: 'Loom Hardware',  color: '#3b82f6', sizeMb: 7,  shipped: false, desc: 'Hardware monitoring & control' },
-  { id: 'developer', name: 'Loom Developer', color: '#f59e0b', sizeMb: 5,  shipped: false, desc: 'Developer utilities suite' },
-  { id: 'finance',   name: 'Loom Finance',   color: '#22d3ee', sizeMb: 6,  shipped: false, desc: 'Local-first personal finance' },
+  { id: 'macro',     name: 'Loch Macro',     color: '#f97316', sizeMb: 8,  shipped: true,  desc: 'Node-based macro scripting' },
+  { id: 'scheduler', name: 'Loch Scheduler', color: '#8b5cf6', sizeMb: 6,  shipped: false, desc: 'Time-aware task orchestration' },
+  { id: 'cookbook',  name: 'Loch Cookbook',  color: '#3b82f6', sizeMb: 5,  shipped: false, desc: 'Personal command recipe book' },
+  { id: 'hardware',  name: 'Loch Hardware',  color: '#10b981', sizeMb: 7,  shipped: true,  desc: 'Hardware monitoring & control' },
+  { id: 'developer', name: 'Loch Developer', color: '#f59e0b', sizeMb: 5,  shipped: false, desc: 'Developer utilities suite' },
+  { id: 'finance',   name: 'Loch Finance',   color: '#22d3ee', sizeMb: 6,  shipped: false, desc: 'Local-first personal finance' },
 ];
 
 export default function SuiteInstallerUI() {
@@ -104,12 +104,12 @@ export default function SuiteInstallerUI() {
         <div className="generated-panel">
           {allShipped ? (
             <>
-              <p className="gen-title">Your custom Loom installer is ready.</p>
+              <p className="gen-title">Your custom Loch installer is ready.</p>
               <p className="gen-sub">
                 The suite installer will download and configure only the apps you selected.
               </p>
               <a
-                href="https://github.com/vidathegoat/loom-macro/releases/latest"
+                href="https://github.com/loch-suite/loch-macro-releases/releases/download/v0.2.0/Loch.Macro_0.2.0_x64-setup.exe"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gen-download-btn"
@@ -126,7 +126,7 @@ export default function SuiteInstallerUI() {
               </p>
               <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
                 <a
-                  href="https://github.com/vidathegoat/loom-macro/releases/latest"
+                  href="https://github.com/loch-suite/loch-macro-releases/releases/download/v0.2.0/Loch.Macro_0.2.0_x64-setup.exe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="gen-download-btn"
