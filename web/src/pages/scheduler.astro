@@ -1,20 +1,293 @@
 ---
-import ComingSoonPage from '../components/ComingSoonPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { APPS } from '../data/apps';
+
+const app = APPS.find(a => a.id === 'scheduler')!;
+const COLOR = app.colorHex; // #8b5cf6
+
+const features = [
+  {
+    title: 'Calendar',
+    desc: 'Day, Month, and Year views in one place. Add recurring events, set reminders, and color-tag anything — no sync, no cloud.',
+    svg: '<rect x="3" y="4" width="14" height="14" rx="1.5"/><path d="M3 8h14"/><path d="M7 2v4M13 2v4"/><path d="M7 12h.01M10 12h.01M13 12h.01"/>',
+  },
+  {
+    title: 'Task Manager',
+    desc: 'Projects, subtasks, priorities from low to urgent, and due dates with times. Recurring tasks keep repeating so you never have to re-enter them.',
+    svg: '<path d="M9 11l2 2 4-4"/><rect x="3" y="5" width="14" height="12" rx="1.5"/><path d="M3 9h14"/>',
+  },
+  {
+    title: 'Habit Tracker',
+    desc: 'Define habits with daily, specific-day, or times-per-week frequencies. Watch streaks build and visualize consistency on a heatmap.',
+    svg: '<path d="M3 12c2-4 4-6 7-6s5 2 7 6"/><path d="M5 15c1.5-2 3-3 5-3s3.5 1 5 3"/><circle cx="10" cy="17" r="1.5"/>',
+  },
+  {
+    title: 'Dashboard',
+    desc: 'An overview of your day — upcoming events, overdue tasks, and today\'s habits — all in one panel before you dig into any view.',
+    svg: '<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="11" y="3" width="6" height="6" rx="1"/><rect x="3" y="11" width="6" height="6" rx="1"/><rect x="11" y="11" width="6" height="6" rx="1"/>',
+  },
+  {
+    title: 'Macro Integration',
+    desc: 'Link a Loch Macro directly to a calendar event or task. Trigger automations on schedule without leaving your workflow.',
+    svg: '<circle cx="5" cy="10" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="15" cy="15" r="2"/><path d="M7 10h3a1 1 0 0 0 1-1V6M7 10h3a1 1 0 0 1 1 1v3"/>',
+  },
+  {
+    title: 'Offline & Private',
+    desc: 'No accounts. No cloud sync. No telemetry. Everything lives in a local SQLite database on your machine — open format, yours to keep.',
+    svg: '<path d="M10 2L3 5.5v5c0 3.8 3 7.2 7 8 4-.8 7-4.2 7-8v-5L10 2z"/><path d="M7 10l2 2 4-4"/>',
+  },
+];
+
+const views = [
+  { name: 'Calendar',  cat: 'View',  color: COLOR,      desc: 'Day · Month · Year' },
+  { name: 'Tasks',     cat: 'View',  color: '#3b82f6',  desc: 'Projects · Subtasks' },
+  { name: 'Habits',    cat: 'View',  color: '#10b981',  desc: 'Streaks · Heatmap' },
+  { name: 'Dashboard', cat: 'View',  color: '#f59e0b',  desc: 'Overview' },
+];
 ---
-<ComingSoonPage
-  id="scheduler"
-  name="Loch Scheduler"
-  tagline="Time-aware task orchestration."
-  description="Schedule recurring jobs, set time-based triggers, and build automated workflows that run on your terms — cron-like power with a human interface."
-  colorHex="#8b5cf6"
-  category="Flow"
-  icon="S"
-  features={[
-    'Cron-style and human-readable schedule builder',
-    'Chained task sequences with conditional logic',
-    'System tray integration — runs silently in the background',
-    'Retry and failure handling with configurable backoff',
-    'Log viewer for job history and diagnostics',
-    'Fully offline — no cloud scheduler or sync required',
-  ]}
-/>
+
+<BaseLayout title="Scheduler" description="Loch Scheduler — Calendar, tasks, and habits for Windows. Offline personal productivity." activePage="/scheduler">
+
+  <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+  <section class="relative min-h-[70vh] flex flex-col items-center justify-center px-6 text-center pt-20">
+    <div class="hero-glow" aria-hidden="true" style={`--app-color: ${COLOR};`}></div>
+
+    <div class="relative z-10 flex flex-col items-center gap-5 max-w-3xl">
+      <div class="flex items-center gap-2">
+        <div class="app-icon-lg flex items-center justify-center font-bold text-2xl"
+             style={`color: ${COLOR}; background: ${COLOR}18; border: 1px solid ${COLOR}30;`}>
+          S
+        </div>
+        <span class="label-section tracking-section" style={`color: ${COLOR};`}>Flow · Loch Suite</span>
+      </div>
+
+      <h1 class="page-title font-loom font-bold uppercase tracking-brand">
+        Loch Scheduler
+      </h1>
+      <p class="page-sub" style="color: var(--text-secondary); max-width: 520px;">
+        Calendar, tasks, and habits in one offline app.<br/>
+        Personal productivity that stays on your machine.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
+        <a href={app.githubRelease}
+           target="_blank" rel="noopener noreferrer"
+           class="cta-download" style={`--c: ${COLOR};`}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="mr-1.5">
+            <path d="M7 2v7M4 6.5L7 9.5L10 6.5M2.5 11.5h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download v{app.version}
+        </a>
+        <span class="text-xs" style="color: var(--text-muted);">Windows 10/11 &middot; ~{app.sizeMb}MB &middot; Free</span>
+      </div>
+
+      <div class="version-pill">
+        <span class="version-dot" style={`background: ${COLOR}; box-shadow: 0 0 6px ${COLOR}80;`}></span>
+        Latest release: v{app.version} — stable
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Features ──────────────────────────────────────────────────── -->
+  <section class="relative px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <span class="label-section mb-2 block">Features</span>
+        <h2 class="section-heading">Everything in one place.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {features.map(f => (
+          <div class="feature-card node-card p-5">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                 class="feature-icon mb-3" style={`color: ${COLOR};`} set:html={f.svg} />
+            <h3 class="text-sm font-semibold mb-2 tracking-tight" style="color: var(--text-primary);">{f.title}</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Views preview ────────────────────────────────────────────── -->
+  <section class="relative px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <span class="label-section mb-2 block">App Views</span>
+        <h2 class="section-heading">Four views. One app.</h2>
+        <p class="mt-3 text-sm" style="color: var(--text-secondary); max-width: 480px;">
+          Switch between Calendar, Tasks, Habits, and Dashboard from the sidebar. Each view is purpose-built — no overlap, no clutter.
+        </p>
+      </div>
+
+      <div class="node-canvas-preview">
+        <div class="node-grid">
+          {views.map(v => (
+            <div class="sim-node node-card">
+              <div class="sim-node-header" style={`border-left: 3px solid ${v.color}; background: linear-gradient(90deg, ${v.color}14 0%, transparent 60%);`}>
+                <p style={`font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: ${v.color}; margin-bottom: 2px;`}>{v.cat}</p>
+                <p style="font-size: 12px; font-weight: 600; color: var(--text-primary); letter-spacing: 0.02em;">{v.name}</p>
+              </div>
+              <div style="padding: 8px 12px;">
+                <p style={`font-size: 10px; color: var(--text-muted);`}>{v.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="canvas-overlay" aria-hidden="true">
+          <p class="label-section" style="letter-spacing: 0.1em;">App Views</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Screenshots placeholder ───────────────────────────────────── -->
+  <section class="relative px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <span class="label-section mb-2 block">Screenshots</span>
+        <h2 class="section-heading">See it in action.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {['Dashboard', 'Calendar', 'Tasks & Projects', 'Habits & Heatmap'].map(caption => (
+          <div class="screenshot-placeholder node-card flex flex-col items-center justify-center gap-3 aspect-video">
+            <div style="width: 40px; height: 40px; border: 1px solid var(--border-subtle); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="1.5" y="3" width="15" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="6" cy="7.5" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M1.5 12L5.5 9L8.5 11.5L12 8.5L16.5 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted);">{caption}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Download CTA ─────────────────────────────────────────────── -->
+  <section class="relative px-6 py-24 text-center">
+    <div class="max-w-lg mx-auto node-card p-10" style={`border-color: ${COLOR}30; box-shadow: 0 0 40px ${COLOR}08;`}>
+      <span class="label-section mb-3 block" style={`color: ${COLOR};`}>Your day, organized.</span>
+      <h2 class="section-heading mb-4">Download Scheduler free.</h2>
+      <p class="text-sm mb-8" style="color: var(--text-secondary);">
+        Windows 10 &amp; 11. No installer bloat. No account. Drop the exe and run.
+      </p>
+      <a href={app.githubRelease}
+         target="_blank" rel="noopener noreferrer"
+         class="cta-download" style={`--c: ${COLOR};`}>
+        Download v{app.version} for Windows →
+      </a>
+      <p class="mt-4" style="font-size: 11px; color: var(--text-muted);">
+        Apache-2.0 &middot; Source available &middot; ~{app.sizeMb}MB
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style define:vars={{ COLOR }}>
+  .hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 700px;
+    height: 400px;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--app-color) 6%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .app-icon-lg {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    font-size: 22px;
+  }
+  .page-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    line-height: 1;
+    letter-spacing: 0.12em;
+    color: var(--text-primary);
+  }
+  .page-sub {
+    font-size: clamp(14px, 2vw, 17px);
+    line-height: 1.7;
+  }
+  .section-heading {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .cta-download {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--c, #8b5cf6) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c, #8b5cf6) 40%, transparent);
+    color: var(--c, #8b5cf6);
+    transition: background 180ms ease, transform 120ms ease;
+  }
+  .cta-download:hover {
+    background: color-mix(in srgb, var(--c, #8b5cf6) 22%, transparent);
+    transform: translateY(-1px);
+  }
+
+  .version-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 99px;
+    font-size: 11px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+  }
+  .version-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .feature-card { transition: transform 180ms ease; }
+  .feature-card:hover { transform: translateY(-2px); }
+  .feature-icon { display: block; flex-shrink: 0; }
+
+  .node-canvas-preview {
+    position: relative;
+    padding: 24px;
+    border-radius: 10px;
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+    min-height: 200px;
+  }
+  .node-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .sim-node { pointer-events: none; }
+  .sim-node-header { padding: 8px 12px; border-bottom: 1px solid var(--border-faint); }
+  .canvas-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    opacity: 0.5;
+  }
+
+  .screenshot-placeholder {
+    background: var(--bg-base);
+    min-height: 240px;
+  }
+</style>

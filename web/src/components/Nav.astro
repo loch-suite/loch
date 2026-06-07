@@ -45,7 +45,7 @@ const links = [
         <div class="absolute top-full right-0 mt-1 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-fast"
              style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); padding: 6px;">
           <a href="/macro"     class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-trigger inline-block mr-2"></span>Macro <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-chip bg-loom-trigger/10 text-loom-trigger font-bold tracking-button uppercase">Live</span></a>
-          <a href="/scheduler" class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-flow     inline-block mr-2"></span>Scheduler</a>
+          <a href="/scheduler" class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-flow     inline-block mr-2"></span>Scheduler <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-chip bg-loom-flow/10 text-loom-flow font-bold tracking-button uppercase">Live</span></a>
           <a href="/cookbook"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-action   inline-block mr-2"></span>Cookbook</a>
           <a href="/hardware"  class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-sensor  inline-block mr-2"></span>Hardware <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-chip bg-loom-sensor/10 text-loom-sensor font-bold tracking-button uppercase">Live</span></a>
           <a href="/developer" class="dropdown-item"><span class="w-2 h-2 rounded-full bg-loom-variable inline-block mr-2"></span>Developer</a>
@@ -87,6 +87,16 @@ const links = [
               <path d="M5 1.5v5M2.5 4.5L5 7l2.5-2.5M1.5 9h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
+          <a href="https://github.com/loch-suite/loch-scheduler-releases/releases/download/v0.1.0/Loch.Scheduler_0.1.0_x64-setup.exe"
+             target="_blank" rel="noopener noreferrer"
+             class="dropdown-item">
+            <span class="w-2 h-2 rounded-full inline-block mr-2 flex-shrink-0" style="background: #8b5cf6;"></span>
+            <span class="flex-1">Scheduler</span>
+            <span style="font-size: 9px; color: var(--text-muted); margin-left: 4px;">v0.1.0</span>
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="ml-2 opacity-40 flex-shrink-0">
+              <path d="M5 1.5v5M2.5 4.5L5 7l2.5-2.5M1.5 9h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
           <div style="height: 1px; background: var(--border-faint); margin: 4px 2px;"></div>
           <a href="/downloads" class="dropdown-item" style="font-size: 10px; color: var(--text-muted);">
             All downloads →
@@ -108,7 +118,7 @@ const links = [
     <div class="px-6 py-4 flex flex-col gap-1">
       <p class="label-section mb-2">Apps</p>
       <a href="/macro"     class="mobile-link">Macro <span class="badge-coming-soon ml-2" style="color: #f97316; border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.1);">Live</span></a>
-      <a href="/scheduler" class="mobile-link">Scheduler</a>
+      <a href="/scheduler" class="mobile-link">Scheduler <span class="badge-coming-soon ml-2" style="color: #8b5cf6; border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.1);">Live</span></a>
       <a href="/cookbook"  class="mobile-link">Cookbook</a>
       <a href="/hardware"  class="mobile-link">Hardware <span class="badge-coming-soon ml-2" style="color: #10b981; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.1);">Live</span></a>
       <a href="/developer" class="mobile-link">Developer</a>
@@ -126,6 +136,10 @@ const links = [
       <a href="https://github.com/loch-suite/loch-hardware-releases/releases/download/v0.2.3/Loch.Hardware_0.2.3_x64-setup.exe"
          target="_blank" rel="noopener noreferrer" class="mobile-link">
         Hardware <span style="font-size: 10px; color: var(--text-muted); margin-left: auto;">v0.2.3 ↓</span>
+      </a>
+      <a href="https://github.com/loch-suite/loch-scheduler-releases/releases/download/v0.1.0/Loch.Scheduler_0.1.0_x64-setup.exe"
+         target="_blank" rel="noopener noreferrer" class="mobile-link">
+        Scheduler <span style="font-size: 10px; color: var(--text-muted); margin-left: auto;">v0.1.0 ↓</span>
       </a>
     </div>
   </div>
